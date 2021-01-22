@@ -14,19 +14,34 @@ body{
     /* margin-left: auto;
     margin-right: auto; */
     box-sizing: border-box;
+    max-width: 1000px;
     position: static;
 }
 .content-elmt{
     padding-top: 25px;
     padding-bottom: 50px;
+    box-sizing: border-box;
 }
-.header{
+.headerwrap{
     background-color: blueviolet;
     position: sticky;
     top: 0;
     left: 0;
-    height: 100px;
+    height: 100%;
     margin: 0;
+    display: block;
+}
+.header{
+    background-color: blue;
+    margin: auto;
+    height: 100px;
+    max-width: 1000px;
+}
+.header-elmt{
+    padding-top: 25px;
+    padding-bottom: 50px;
+    box-sizing: border-box;
+    display: inline;    
 }
 h1{
     color: brown;
