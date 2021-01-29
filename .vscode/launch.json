@@ -6,7 +6,9 @@
             "type": "firefox",
             "request": "launch",
             "name": "Launch Firefox",
-            "file": "${file}",
+            // "file": "${file}",
+            "file": "${workspaceFolder}\\main.html",
+
             "reAttach": true
         }]
 }

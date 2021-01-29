@@ -1,48 +1,61 @@
 html{
-    font-size: 1rem;
+    font-size: 12px;
     font-family: 'Courier New', Courier, monospace;
     background-color: black;
+    /* refs couleurs */
+    overflow-x: hidden;
+    overflow-y: scroll;
+    box-sizing: border-box;
+}
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font: inherit;
+    font-size: inherit;
+    font-family: inherit;
+    vertical-align: baseline;
+    box-sizing: inherit;
 }
 body{
-    margin:0;
+    font-size: 1.5rem;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     background-color: white;
+    color: black;
 }
-.headerwrap{
+.main-wrapper{
+    background-color: darkseagreen;
+}
+.navbar{
     background-color: blueviolet;
-    position: sticky;
-    top: 0;
-    left: 0;
-    height: 100%;
-    margin: 0;
-    display: block;
-}
-.header{
-    background-color: blue;
-    margin: auto;
+    position: -webkit-sticky;
+    position: sticky;top: 0;
+    width: auto;
     height: 100px;
-    max-width: 900px;
+    margin: 0;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
 }
-.header-elmt{
-    padding-top: 25px;
-    padding-bottom: 25px;
-    box-sizing: border-box;
-    display: inline;
-    position:relative;top:30px;
+.nav__left{
+    display:flex;
+    flex-flow: row nowrap;
+    align-items: inherit;
+}
+.nav__elmt{
+    padding: 0 50px;
 }
 .container{
-    padding-left: 25px;
-    padding-right: 25px;
-    margin-left: auto;
-    margin-right: auto;
-    box-sizing: border-box;
-    max-width: 900px;
+    padding: 0 25px;
+    margin: auto;
     position: static;
+    background-color: aquamarine;
+    max-width: 900px;
 }
 .content-elmt{
-    padding-top: 25px;
-    padding-bottom: 50px;
-    box-sizing: border-box;
+    padding: 25px 0;
 }
 h1{
     color: brown;
@@ -57,4 +70,7 @@ color:red;
 border:none;
 color:white;
 background-color:pink;
+font-size: 1.5rem;
+font-weight: bold;
+margin: auto;
 }
