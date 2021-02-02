@@ -1,16 +1,19 @@
-html{
+:root{
     font-size: 12px;
     font-family: 'Courier New', Courier, monospace;
     background-color: black;
-    /* refs couleurs */
     overflow-x: hidden;
     overflow-y: scroll;
     box-sizing: border-box;
+    display: block;
+    --yellow:#FFC600;
+    --dark-blue:#151E3F;
+    --light-grey:#F6F7F8;
 }
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, pre, a, abbr, acronym, address, big, cite, code, del, dfn, em, img, ins, kbd, q, s, samp, small, strike, strong, sub, sup, tt, var, dl, dt, dd, ol, ul, li, fieldset, form, label, legend, table, caption, tbody, tfoot, thead, tr, th, td, article, aside, canvas, details, embed, figure, figcaption, footer, header, hgroup, menu, nav, output, ruby, section, summary, time, mark, audio, video {
     margin: 0;
     padding: 0;
-    border: 0;
+    border-style: none;
     font: inherit;
     font-size: inherit;
     font-family: inherit;
@@ -18,19 +21,18 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
     box-sizing: inherit;
 }
 body{
-    font-size: 1.5rem;
+    font-size: 1.75rem;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     background-color: white;
     color: black;
 }
 .main-wrapper{
-    background-color: darkseagreen;
+    background-color: var(--light-grey);
 }
 .nav{
-    background-color: blueviolet;
+    background-color: var(--dark-blue);
     position: -webkit-sticky;
     position: sticky;top: 0;
-    width: auto;
     height: 100px;
     margin: 0;
     padding: 0 20px;
@@ -44,45 +46,89 @@ body{
     flex-flow: row nowrap;
     align-items: inherit;
     margin: 0 25px;
+    align-items: center;
+    /* background-color: aquamarine; */
+}
+.nav__list--left{
+    flex-grow: 0;
+}
+.nav__list--right{
+    flex-direction: row-reverse;
+    flex-grow: 3;
 }
 .nav__list-item{
-    align-items: center;
+    color: var(--light-grey);
     padding: 0 25px;
+    font-size: 1.5em;
 }
 a.nav__list-item:hover{
     text-decoration: underline;
 }
-.searchbar{
-    display: flex;
-    flex-direction: row;
+.nav__list-item--logo{
+    width: auto;
+    height: 100%;
+}
+.logo{
+    font-size:2em;
+    color:var(--yellow);
+}
+.nav__list-item--searchbar{
+    flex-grow: inherit;
+}
+#searchbar{
+    flex-grow: inherit;
+    height: 100%;
+    width: 100%;
+    min-width: 100px;
+    
+    /* max-width: 500px; */
 }
 .container{
     padding: 0 25px;
     margin: auto;
     position: static;
-    background-color: aquamarine;
+    background-color: var(--light-grey);
     max-width: 900px;
+    /* background-color: aquamarine; */
 }
 .content-elmt{
+    /* background-color: blanchedalmond; */
     padding: 25px 0;
+    text-align: justify;
 }
 h1{
-    color: brown;
+    font-size: 2.5em;
+    color: var(--dark-blue);
     margin-left: 20px;
+    font-weight: bold;
+    padding-bottom: 0.25em;
 }
 a{
     color:black;
     text-decoration: none;
 }
-.logo{
-font-size:200%;
-color:red;
+.button{
+    border:none;
+    display: block;
 }
-.begin-button{
-border:none;
-color:white;
-background-color:pink;
-font-size: 1.5rem;
-font-weight: bold;
-margin: auto;
+.button--big{
+    margin: auto;
+    color:var(--light-grey);
+    background-color:var(--dark-blue);
+    font-size: 1.25em;
+    font-weight: bold;
+    border-radius: 1.25em;
+    padding: 0.5em 1em;
+}
+.card-wrapper{
+    display: grid;
+    grid-template-columns: auto auto auto;
+    grid-gap: 20px;
+}
+.card{
+    border: 1px dashed var(--dark-blue);
+    background-color: var(--yellow);
+    max-width: 425px;
+    max-height: 350px;
+    text-align: justify;
 }
