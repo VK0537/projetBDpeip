@@ -29,6 +29,41 @@ body{
     color: black;
     min-height: 100%;
 }
+h1{
+    font-size: 2.5em;
+    color: var(--dark-blue);
+    padding-left: 20px;
+    font-weight: bold;
+    padding-bottom: 0.25em;
+}
+h2{
+    font-size: 2em;
+    color: var(--dark-blue);
+    padding-left: 20px;
+    font-weight: bold;
+    padding-bottom: 0.25em;
+}
+p{
+    font-size: inherit;
+    color: inherit;
+    padding-bottom: 0.25em;
+}
+a{
+    color:black;
+    text-decoration: none;
+}
+button{
+    display: block;
+    cursor: pointer;
+    border-radius: 5px;
+    padding: 3px 5px;
+}
+input{
+    display: inline-block;
+    border-radius: 5px;
+    padding: 3px 5px;
+    vertical-align: baseline;
+}
 .main-wrap{
     background-color: var(--light-grey);
 }
@@ -91,7 +126,6 @@ a.nav__list-item:hover{
 }
 #searchbar{
     background-color: var(--dark-blue);
-    display: inline-block;
     flex-grow: inherit;
     box-sizing: border-box;
     margin: 0;
@@ -115,23 +149,8 @@ a.nav__list-item:hover{
     max-width: 900px;
 }
 .content-item{
-    padding: 25px 0;
+    padding: 15px 0;
     text-align: justify;
-}
-h1{
-    font-size: 2.5em;
-    color: var(--dark-blue);
-    padding-left: 20px;
-    font-weight: bold;
-    padding-bottom: 0.25em;
-}
-a{
-    color:black;
-    text-decoration: none;
-}
-.button{
-    display: block;
-    cursor: pointer;
 }
 .button--big{
     margin: auto;
@@ -165,21 +184,51 @@ a{
 .card:hover h1{
     text-decoration: underline;
 }
-.card__img-wrap{
+.card__img{
     border-radius:1.25em 1.25em 0 0;
     overflow: hidden;
     flex-shrink: 3;
 }
-.card__text-wrap{
+.card__text{
     flex: none;
     padding: 15px;
+    text-align: left;
 }
-.card__img-wrap img{  
+.card__img img{  
     border-radius:1.25em 1.25em 0 0;
     width: 100%;
     height: auto;
 }
-.card__text-wrap h1{
+.card__text h1{
     font-size: 1.25em;
     padding-left: 0;
+}
+.newsletter-wrap{
+    background-color: var(--dark-blue);
+    padding: 20px;
+}
+.newsletter{
+    margin: 25px 25%;
+}
+.newsletter h2{
+    color: var(--light-grey);
+}
+.newsletter p{
+    color: var(--light-grey);
+}
+.newsletter__email{
+    text-align: center;
+}
+#email-nl__field{
+    margin: 10px;
+    /* border: 1px solid var(--light-grey); */
+}
+#email-nl__submit{
+    display: inline-block;
+    margin: 10px;
+    /* border: 1px solid var(--light-grey); */
+}
+#email-nl__submit:hover{
+    color: var(--light-grey);
+    background-color: var(--yellow);
 }
