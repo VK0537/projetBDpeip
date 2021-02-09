@@ -1,3 +1,30 @@
+<?php
+session_start();
+if(isset($_POST['submit-nl'])){
+    $_SESSION['email']=strtolower($_POST['email-nl']);
+    header('Location:#newsletter');
+    exit;
+};
+if(isset($_SESSION['email'])){
+    $email=$_SESSION['email'];
+    if(!empty($email)){
+        $headers="Content-type: text/html; charset=utf-8"."\r\n".
+        "Return-Path: root@localhost.com"."\r\n".
+        "Reply-To: root@localhost.com"."\r\n".
+        "Errors-To: root@localhost.com"."\r\n".
+        "To: {$email}"."\r\n".
+        "From: root@localhost.com";
+        mail($email,"Merci de t'être inscrit...","hello",$headers);
+        // add email to database
+        echo("<script>alert('a verification email have been sent to $email.');</script>");
+    }
+    // else{
+    //     echo("<script>alert('empty');</script>");
+    // };
+    unset($_SESSION['email']);
+}
+?>
+
 <!DOCTYPE html>
 <html lang='fr'>
     <head>
@@ -72,35 +99,6 @@
                         <input id="email-nl__field" type="email" name="email-nl" placeholder="Email"/>
                         <!-- pattern="(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)" -->
                         <button class="" id="email-nl__submit" type="submit" name="submit-nl">Go !</button>
-                        <?php
-                        if(isset($_POST)){echo("<script>alert('post is set');</script>");}
-                        else{echo("<script>alert('post not set');</script>");};
-                        if(isset($_POST['submit-nl'])){echo("<script>alert('nl is set');</script>");}
-                        else{echo("<script>alert('nl not set');</script>");};
-                        if(empty($_POST['submit-nl'])){echo("<script>alert('nl is empty');</script>");}
-                        else{echo("<script>alert('nl not empty');</script>");};
-                            // switch($_SERVER['REQUEST_METHOD']){
-                            //     case 'GET':  $email=$_GET['email-nl'];
-                            //     case 'POST': $email=$_POST['email-nl'];
-                            // }
-                            // echo("<p>{$_POST['submit-nl']}</p>");
-                            // if(isset($_POST['submit-nl'])&&){
-                            //     echo("<p>{$_POST['submit-nl']}</p>");
-                            //     $email=strtolower($_POST['email-nl']);
-                            //     $headers="Content-type: text/html; charset=utf-8"."\r\n".
-                            //     "Return-Path: root@localhost.com"."\r\n".
-                            //     "Reply-To: root@localhost.com"."\r\n".
-                            //     "Errors-To: root@localhost.com"."\r\n".
-                            //     "To: $email"."\r\n".
-                            //     "From: root@localhost.com";
-                            //     mail($email,"Merci de t'être inscrit...","hello",$headers);
-                            //     // add email to database
-                            //     // echo("<script>alert('a verification email have been sent to $email.');</script>");
-                            //     echo("<p>a</p>");
-                            //     unset($_POST['submit-nl']);
-                            //     // echo("<p>{$_POST['submit-nl']}</p>");
-                            // };
-                        ?>
                     </div>
                 </form>
             </div>
