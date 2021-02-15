@@ -25,7 +25,7 @@
             </header>
             <div class="container">
                 <div class="content-item">
-                    <h1>Title</h1>
+                    <h1>html</h1>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. <br/>Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. </p>
                 </div>
                 <div class="content-item">
@@ -65,13 +65,23 @@
                 </div>
             </div>
             <div class="newsletter-wrap">
-                <form class="newsletter" id="nl" method="POST" target="_self">
+                <form class="newsletter" id="newsletter" action="newsletter.php" method="POST" target="_self">
                     <h2>Newsletter</h2>
                     <p>Si tu veux t'inscrire à notre newsletter, vas-y ! Promis on va pas spammer...</p>
                     <div class="newsletter__email">
-                        <input id="email-nl__field" action="newsletter.php" type="email" name="email-nl" placeholder="Email"/>
+                        <input id="email-nl__field" type="email" name="email-nl" placeholder="Email"/>
                         <!-- pattern="(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)" -->
-                        <button class="" id="email-nl__submit" type="submit" name="submit-nl">Go !</button>
+                        <button id="email-nl__submit" type="submit" name="submit-nl">Go !</button>
+                        <!-- <script>
+                            function submitNewsletter(){
+                                if(document.getElementById('#email-nl')){
+                                    alert('a verification email have been sent to '+document.getElementById('#email-nl'));
+                                    document.getElementById('newsletter').submit();
+                                }else{
+                                    alert('enter your email...');
+                                };
+                            }
+                        </script> -->
                     </div>
                 </form>
             </div>

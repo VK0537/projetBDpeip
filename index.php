@@ -14,7 +14,7 @@ if(isset($_SESSION['email'])){
         "Errors-To: root@localhost.com"."\r\n".
         "To: {$email}"."\r\n".
         "From: root@localhost.com";
-        mail($email,"Merci de t'être inscrit...","hello",$headers);
+        mail($email,"Hello","hello",$headers);
         // add email to database
         echo("<script>alert('a verification email have been sent to $email.');</script>");
     }
@@ -52,7 +52,7 @@ if(isset($_SESSION['email'])){
             </header>
             <div class="container">
                 <div class="content-item">
-                    <h1>Title</h1>
+                    <h1>php</h1>
                     <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus imperdiet, nulla et dictum interdum, nisi lorem egestas odio, vitae scelerisque enim ligula venenatis dolor. <br/>Maecenas nisl est, ultrices nec congue eget, auctor vitae massa. Fusce luctus vestibulum augue ut aliquet. </p>
                 </div>
                 <div class="content-item">
@@ -96,9 +96,9 @@ if(isset($_SESSION['email'])){
                     <h2>Newsletter</h2>
                     <p>Si tu veux t'inscrire à notre newsletter, vas-y ! Promis on va pas spammer...</p>
                     <div class="newsletter__email">
-                        <input id="email-nl__field" type="email" name="email-nl" placeholder="Email"/>
+                        <input id="email-nl__field" type="email" name="email-nl" placeholder="Email" required/>
                         <!-- pattern="(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)" -->
-                        <button class="" id="email-nl__submit" type="submit" name="submit-nl">Go !</button>
+                        <button id="email-nl__submit" type="submit" name="submit-nl">Go !</button>
                     </div>
                 </form>
             </div>
