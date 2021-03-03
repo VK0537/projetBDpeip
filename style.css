@@ -233,3 +233,12 @@ a.nav__list-item:hover{
     color: var(--light-grey);
     background-color: var(--yellow);
 }
+#tipshover{
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: none;
+    z-index: 1000;
+    color: white;
+    background-color: #33333355;
+}
