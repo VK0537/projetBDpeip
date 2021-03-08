@@ -234,6 +234,19 @@ a.nav__list-item:hover{
     background-color: var(--yellow);
 }
 
+.recette{
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid var(--dark-blue); */
+    border-radius: 1.25em;
+    background-color: var(--yellow);
+    height: 1200px;
+    max-height: 300px;
+    width:900px;
+    margin-bottom: 50px;
+    box-shadow: 5px 5px 5px #888;
+}
+
 .recette__img
 {
     border-radius:1.25em 1.25em 0 0;
