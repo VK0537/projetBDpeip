@@ -276,11 +276,16 @@ a.nav__list-item:hover{
  
 }   
  
+
 .thead{
     background-color: var(--yellow);
     text-align: center;
-    font-weight: bold;  overflow-x: 
+    font-weight: bold; 
 }
+
+
+
+
  
 .tbody{
     background-color: var(--yellow);
