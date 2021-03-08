@@ -267,9 +267,6 @@ a.nav__list-item:hover{
     padding-left: 0;
 }
 
-
-
-
 .tableau{
     width: 800px;
     border-radius:4px;
@@ -290,7 +287,6 @@ a.nav__list-item:hover{
 }
 
 
-
 .etape
 {
     margin-left: 600px;
@@ -302,7 +298,6 @@ a.nav__list-item:hover{
 {
     list-style-type: none;
     float: left;
-
 }
 
 .Ingredients img
