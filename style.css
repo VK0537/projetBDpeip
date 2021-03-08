@@ -233,3 +233,86 @@ a.nav__list-item:hover{
     color: var(--light-grey);
     background-color: var(--yellow);
 }
+
+.recette{
+    display: flex;
+    flex-direction: column;
+    /* border: 1px solid var(--dark-blue); */
+    border-radius: 1.25em;
+    background-color: var(--yellow);
+    height: 1200px;
+    max-height: 300px;
+    width:900px;
+    margin-bottom: 50px;
+    box-shadow: 5px 5px 5px #888;
+}
+.recette__img
+{
+    border-radius:1.25em 1.25em 0 0;
+    overflow: hidden;
+    flex-shrink: 3;
+}
+.recette__text{
+    flex: none;
+    padding: 15px;
+    text-align: left;
+}
+.recette__img img{  
+    border-radius:1.25em 1.25em 0 0;
+    width: 100%;
+    height: auto;
+}
+.recette__text h1{
+    font-size: 1.25em;
+    padding-left: 0;
+}
+
+
+
+
+.tableau{
+    width: 800px;
+    border-radius:4px;
+    background-color: var(--dark-blue);
+    margin: auto;
+
+}   
+
+.thead{
+    background-color: var(--yellow);
+    text-align: center;
+    font-weight: bold;  overflow-x: 
+}
+
+.tbody{
+    background-color: var(--yellow);
+    text-align: center;
+}
+
+
+
+.etape
+{
+    margin-left: 600px;
+    width: 600px;
+    list-style-type: none;
+}
+
+.Ingredients
+{
+    list-style-type: none;
+    float: left;
+
+}
+
+.Ingredients img
+{
+    width: 75px;
+}
+
+.numEtape
+{
+    font-size: 48px;
+    text-shadow:0 0 5px #E73E01;
+}
+
