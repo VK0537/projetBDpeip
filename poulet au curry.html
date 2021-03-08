@@ -5,7 +5,7 @@
         <link rel='stylesheet' href='style.css'/>
         <title>Ptitips</title>
     </head>
-    <body>
+    <body> 
         <div class="main-wrap">
             <header class="nav">
                 <nav class="nav__list nav__list--left">
@@ -23,8 +23,47 @@
                     </form>
                 </nav>
             </header>
-            <h1> Poulet au curry </h1>
-            <h2> Pour cette recette, vous allez avoir besoin des ingrédients suivants :</h2>
+            <div class="container">
+                <div class="content-item">
+                    <h1>5 astuces pâté</h1>
+                    <p>Régalez vous à petits prix avec ces quelques recettes. <br>Bon appétit§x </p>
+                </div>
+
+                <div class="content-item card-wrap">
+                    <a href="test.html"><div class="card">
+                        <div class="card__img"><img src="fajitas.jfif" alt="fajitas"/></div>
+                        <div class="card__text"><h1>Fajitas au poulet</h1><p>Le sandwich équilibré par excellence</p></div>
+                    </div></a>
+                    <a href="test.html"><div class="card">
+                        <div class=card__img><img src="curry.jfif" alt="curry"/></div>
+                        <div class="card__text"><h1>curry au poulet</h1><p>le voyage dustatif à petit prix</p></div>
+                    </div></a>
+
+                    </div></a>
+                </div>
+
+            </div>
+            <div class="newsletter-wrap">
+                <form class="newsletter" id="newsletter" action="newsletter.php" method="POST" target="_self">
+                    <h2>Newsletter</h2>
+                    <p>Si tu veux t'inscrire à notre newsletter, vas-y ! Promis on va pas spammer...</p>
+                    <div class="newsletter__email">
+                        <input id="email-nl__field" type="email" name="email-nl" placeholder="Email"/>
+                        <!-- pattern="(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)" -->
+                        <button id="email-nl__submit" type="submit" name="submit-nl">Go !</button>
+                        <!-- <script>
+                            function submitNewsletter(){
+                                if(document.getElementById('#email-nl')){
+                                    alert('a verification email have been sent to '+document.getElementById('#email-nl'));
+                                    document.getElementById('newsletter').submit();
+                                }else{
+                                    alert('enter your email...');
+                                };
+                            }
+                        </script> -->
+                    </div>
+                </form>
+            </div>
         </div>
     </body>
 </html>
