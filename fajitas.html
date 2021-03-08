@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang='fr'>
+    <head>
+        <meta charset='utf-8'/>
+        <link rel='stylesheet' href='style.css'/>
+        <title>Ptitips</title>
+    </head>
+    <body> 
+        <div class="main-wrap">
+            <header class="nav">
+                <nav class="nav__list nav__list--left">
+                    <a class="nav__list-item nav__list-item--logo" href="index.html">
+                        <img class="logo" src="logo.png" height="70" alt="Ptitips"/>
+                    </a>
+                    <a class="nav__list-item nav__list-item--text" href="test.html">NEWS</a>
+                    <a class="nav__list-item nav__list-item--text" href="test.html">TIPS</a>
+                    <a class="nav__list-item nav__list-item--text" href="test.html">ABOUT&nbsp;US</a>
+                </nav>
+                <nav class="nav__list nav__list--right">
+                    <a class ="nav__list-item nav__list-item--logo" href="test.html"><img src="userw.png" alt="Connexion"/></a>
+                    <form class="nav__list-item nav__list-item--searchbar" action="#" method="GET" name="searchbar">
+                        <input type="text" id="searchbar" name="search" placeholder="Search"/>
+                    </form>
+                </nav>
+            </header>
+
+
+
+
+            <div class="container">
+                <div class="content-item">
+                    <h1>Recette fajitas au poulet</h1>
+                </div>
+
+                <div class="content-item card-wrap">
+                    <div class="recette">
+                        <div class="recette__img"><img src="fajitas.jfif" alt="fajitas"/>
+                        </div>
+                        <div class="recette__text">
+                            <table class="tableau">
+                                <thead class="thead">
+                                    <tr><th>temps de préparation</th><th>niveau de difficulté</th><th>prix</th></tr>
+                                </thead> 
+                                <tbody class="tbody">
+                                   <tr><th>1h20</th><th>facile</th><th>bon marché</th></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+        <div class="Ingredients">
+        <h2>Ingrédients:</h2>
+            <ul>
+                <li><img src="poulet.jpeg" alt="poulet"> 2 blancs de poulet</li>
+                <li><img src="poivronrouge.jpeg" alt="poivron rouge"> 1/2 poivron rouge</li>
+                <li><img src="poivronvert.jpeg" alt="poivron vert"> 1/2 poivron vert</li>
+                <li><img src="oignon.jpeg" alt="oignon"> 1 oignon</li>
+                <li><img src="ail.jpeg"> 1 gousse d'ail</li>
+                <li><img src="creme.jpeg" alt="crème fraiche"> 10 cl de crème fraîche épaisse</li>
+                <li><img src="tortillas.jpeg" alt="tortillas"> 4 tortillas</li>
+                <li><img src="huile.jpeg" alt="huile"> 3 cuillères d'huile</li>
+                <li><img src="chili.jpeg" alt="chili en poudre"> 1/2 cuillère à café de chili en poudre</li>
+                <li><img src="cumin.jpeg" alt="cumin en poudre"> 1/2 cuillière à café de cumin en poudre</li>
+                <li><img src="citron.jpeg" alt="citron vert"> 1/2 citron vert</li>
+                <li><img src="sel.jpeg" alt="sel"> sel</li>
+                <li><img src="poivre.jpeg" alt="poivre"> poivre</li>
+            </ul>
+        </div>
+                            
+
+        <div class="etape">
+            <h2>étapes de préparation:</h2>
+            <ul>
+                <li><span class="numEtape">1</span> Couper finement les blancs de poulet, presser le citron vert et écraser l'ail.</li><br>
+                <li><span class="numEtape">2</span> Dans un plat, mettre le poulet, arroser de jus de citron, puis verser 4 cuillères à soupe d'huile; saupoudrer de chili, cumin, sel et poivre.</li><br>
+                <li><span class="numEtape">3</span> Mélanger, couvrir et laisser reposer au frigo.</li><br>
+                <li><span class="numEtape">4</span> Préchauffer le four à 210°C (thermostat 7).Couper les poivrons en lanières, et émincer les oignons.</li><br>
+                <li><span class="numEtape">5</span> Faire chauffer 2 cuillères à soupe d'huile dans une poêle, mettre les oignons et les poivrons à blondir; garder au chaud.</li><br>
+                <li><span class="numEtape">6</span> Envelopper les tortillas dans une feuille alu ,et les faire chauffer 10 min au four.</li><br>
+                <li><span class="numEtape">7</span> Egoutter les morceaux de poulet et les faire dorer. Dès qu'ils sont colorés, les arroser avec la marinade, couvrir et laisser mijoter 5 min.</li><br>
+                <li><span class="numEtape">8</span> Disposer la viande, les légumes et les tortillas dans un plat différent; et dans une coupelle, verser la crème. Ainsi, chacun garnira à sa convenance.</li><br>
+            </ul>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+            <br>
+        </div>
+
+
+            <div class="newsletter-wrap">
+                <form class="newsletter" id="newsletter" action="newsletter.php" method="POST" target="_self">
+                    <h2>Newsletter</h2>
+                    <p>Si tu veux t'inscrire à notre newsletter, vas-y ! Promis on va pas spammer...</p>
+                    <div class="newsletter__email">
+                        <input id="email-nl__field" type="email" name="email-nl" placeholder="Email"/>
+                        <!-- pattern="(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)" -->
+                        <button id="email-nl__submit" type="submit" name="submit-nl">Go !</button>
+                        <!-- <script>
+                            function submitNewsletter(){
+                                if(document.getElementById('#email-nl')){
+                                    alert('a verification email have been sent to '+document.getElementById('#email-nl'));
+                                    document.getElementById('newsletter').submit();
+                                }else{
+                                    alert('enter your email...');
+                                };
+                            }
+                        </script> -->
+                    </div>
+                </form>
+            </div>
+        </div>
+    </body>
+</html>

@@ -266,55 +266,48 @@ a.nav__list-item:hover{
     font-size: 1.25em;
     padding-left: 0;
 }
- 
+
 .tableau{
     width: 800px;
     border-radius:4px;
     background-color: var(--dark-blue);
     margin: auto;
- 
+
 }   
- 
 
 .thead{
     background-color: var(--yellow);
     text-align: center;
-    font-weight: bold; 
+    font-weight: bold;  overflow-x: 
 }
 
-
-
-
- 
 .tbody{
     background-color: var(--yellow);
     text-align: center;
 }
- 
- 
+
+
 .etape
 {
     margin-left: 600px;
     width: 600px;
     list-style-type: none;
 }
- 
+
 .Ingredients
 {
     list-style-type: none;
     float: left;
 }
- 
+
 .Ingredients img
 {
     width: 75px;
 }
- 
+
 .numEtape
 {
     font-size: 48px;
     text-shadow:0 0 5px #E73E01;
 }
- 
- 
 
