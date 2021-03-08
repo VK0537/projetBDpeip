@@ -98,8 +98,11 @@
                 let tips=document.getElementById('tips')
                 tips.addEventListener("mouseover",(event)=>{
                     document.getElementById('tipshover').style.display='block'
-                })
-            }
+                });
+                tips.addEventListener("mouseout",(event)=>{
+                    document.getElementById('tipshover').style.display='none'
+                });
+            };
         </script>
     </body>
 </html>
