@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="fr>"
+    <head>
+       <meta charset="utf-8">
+       <title> Inscription </title>
+	   <link rel="stylesheet" href="style.css" media="screen" type="text/css" />
+    </head>
+    <body>
+        <div id="container">
+            <!-- zone de connexion -->
+            
+            <form action="verification.php" method="POST">
+                <h1>Inscription</h1>
+                
+                <label><b>Nom d'utilisateur</b></label>
+                <input type="text" placeholder="Nom d'utilisateur" pattern="[a-zA-Z]{2-20}" name="username" required>
+				
+				<label><b>Lieu d'etude</b></label>
+                <input type="text" placeholder="Lieu d'etude" pattern="[a-zA-Z]{0-20}" name="lieu etude" required>
+				
+				<label><b>Formation</b></label>
+                <input type="text" placeholder="Formation" pattern="{2-20}" name="formation" required>
+				
+				<label><b>Age</b></label>
+                <input type="text" placeholder="Age" pattern="[0-9]{0-2}" name="age" required>
+				
+				<label><b>Adresse mail</b></label>
+                <input type="email" placeholder="Adresse email" name="mail" required>
+				
+				<label><b>Mot de passe</b></label>
+                <input type="password" placeholder="Mot de passe" pattern="[a-zA-Z]{2-20}" name="mdp" required>
+                
+                <input type="submit" id='submit' value='LOGIN' >
+                <?php
+                if(isset($_GET['erreur'])){
+                    $err = $_GET['erreur'];
+                    if($err==1 || $err==2);
+				
+            </form>
+		<a href="file:///C:/Users/lucib/OneDrive/Documents/Informatique/Projet/Connexion.html"> Déjà inscrit? </a>
+        </div>
+    </body>
+</html>
