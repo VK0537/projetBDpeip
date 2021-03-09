@@ -34,7 +34,7 @@ h1{
     color: inherit;
     /* padding-left: 1em; */
     font-weight: bold;
-    padding-bottom: 0.25em;
+    padding-bottom: 0.5em;
 }
 h2{
     font-size: 2em;
@@ -71,7 +71,8 @@ input{
     content: "";
     display: block;
     position: absolute;
-    height: 355px;
+    min-height: 367px;
+    height: attr('gradient-height');
     width: 100%;
     top: 100px;
     left: 0;

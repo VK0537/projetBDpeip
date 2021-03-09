@@ -4,6 +4,7 @@
         <meta charset='utf-8'/>
         <link rel='stylesheet' href='style.css'/>
         <title>Ptitips</title>
+        <link rel="shortcut icon" href="#"/>
     </head>
     <body>
         <div class="main-wrap">
@@ -52,8 +53,7 @@
                     permettre aussi de trouver des colocs ou, en temps de Covid, de se sentir un peu moins seul...</br>
                     Vous trouverez sur notre site plusieures rubriques, qui vous redirigeront notamment vers 
                     des recettes, des tutos de bricolage, une page d'aide à l'administratif, et une page qui 
-                    concerne la gestion de vos tâches quotidiennes : budget, liste de courses, etc...
-                    </p>
+                    concerne la gestion de vos tâches quotidiennes : budget, liste de courses, etc...</p>
                 </div>
                 <div class="content-item card-wrap">
                     <a href="test.html"><div class="card">
@@ -76,7 +76,7 @@
                         <div class=card__img><img src="images/IMG_1281.JPG" alt="exam"/></div>
                         <div class="card__text"><p>Réussir ses révisions</p></div>
                     </div></a>
-                    <a href="test.html"><div class="card">
+                    <a href="test.html"><div class="card">  
                         <div class=card__img><img src="images/IMG_0838.jpg" alt="clodo"/></div>
                         <div class="card__text"><h1>Gérer ses finances</h1><p>Ou comment ne pas finir à la rue</p></div>
                     </div></a>
@@ -116,6 +116,17 @@
                 tips.addEventListener("mouseout",(event)=>{
                     document.getElementById('tipshover').style.display='none'
                 });
+            };
+            if(document.querySelector('.content-item--white')!==null && document.querySelector('.main-wrap')!==null){
+                let whiteContentHeight=document.querySelector('.content-item--white').style.height+30;
+                let mainWrap=document.querySelector('.main-wrap');
+                console.log(whiteContentHeight);
+                mainWrap.setAttribute('gradient-height',whiteContentHeight);
+                window.onresize=function(event){
+                    whiteContentHeight=document.querySelector('.content-item--white').style.height+30;
+                    console.log(whiteContentHeight);
+                    mainWrap.setAttribute('gradient-height',whiteContentHeight);
+                }
             };
         </script>
     </body>
