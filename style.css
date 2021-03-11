@@ -10,8 +10,9 @@
     --yellow:#FFC600;
     --dark-blue:#151E3F;
     --light-grey:#F6F6F6;
+    --gradient-height:" ";
 }
-html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, input, pre, a, address, big, cite, code, del, em, img, strong, var, ol, ul, li, fieldset, form, label, legend, table, caption, tr, th, td, article, embed, footer, header, hgroup, menu, nav, output, button {
+html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, input, pre, a, address, big, cite, code, del, em, img, strong, var, ol, ul, li, fieldset, form, label, legend, table, caption, tr, th, td, article, embed,  header, main, footer, hgroup, menu, nav, output, button {
     margin: 0;
     padding: 0;
     border: 0;
@@ -72,7 +73,7 @@ input{
     display: block;
     position: absolute;
     min-height: 367px;
-    height: attr('gradient-height');
+    height: attr(gradient-height);
     width: 100%;
     top: 100px;
     left: 0;
@@ -82,7 +83,7 @@ input{
     background: linear-gradient(180deg, #151E3F 0%, #151E3F44 100%); 
     /* border-bottom: 3px solid #FFC600; */
 }
-.nav{
+.header{
     background-color: var(--dark-blue);
     position: -webkit-sticky;
     position: sticky;top: 0;
@@ -95,39 +96,39 @@ input{
     align-items: center;
     box-shadow: 0 0 20px var(--dark-blue);
 }
-.nav__list{
+.nav{
     display:flex;
     flex-flow: row nowrap;
     align-items: inherit;
     margin: 0 25px;
     align-items: center;
 }
-.nav__list--left{
+.nav--left{
     flex: 1 1 auto;
 }
-.nav__list--right{
+.nav--right{
     flex-direction: row-reverse;
     flex: 3 1 auto;
 }
-.nav__list-item{
+.nav-item{
     position: relative;
     color: var(--light-grey);
     padding: 0 25px;
 }
-.nav__list-item--text{
+.nav-item--text{
     font-size: 1.25em;
 }
-a.nav__list-item:hover{
+a.nav-item:hover{
     text-decoration: underline;
 }
-.nav__list-item a:hover{
+.nav-item a:hover{
     text-decoration: underline;
 }
-.nav__list-item__hover{
+.nav-item__hover{
+    display: none;
     position: absolute;
     top: 1.5em;
     left: 30%;
-    display: none;
     z-index: 1000;
     color: var(--yellow);
     background-color: #151E3FAA;
@@ -136,7 +137,7 @@ a.nav__list-item:hover{
     border-radius: 0.5em;
     padding: .5em;
 }
-.nav__list-item--logo{
+.nav-item--logo{
     width: auto;
     height: 100%;
     align-items: center;
@@ -146,7 +147,7 @@ a.nav__list-item:hover{
     font-size:2em;
     color:var(--yellow);
 }
-.nav__list-item--searchbar{
+.nav-item--searchbar{
     /* margin-left: 50px; */
     font-size: 0;
     flex-grow: inherit;
@@ -171,7 +172,8 @@ a.nav__list-item:hover{
     padding-bottom: 7px;
     color: var(--yellow);
 }
-.container{
+main{
+    display: block;
     padding: 1.2em;
     margin: auto;
     /* background-color: var(--light-grey); */
@@ -238,7 +240,7 @@ a.nav__list-item:hover{
     font-size: 1.25em;
     padding-left: 0;
 }
-.newsletter-wrap{
+footer{
     background-color: var(--dark-blue);
     padding: 1em;
 }
@@ -269,4 +271,8 @@ a.nav__list-item:hover{
 #email-nl__submit:hover{
     color: var(--light-grey);
     background-color: var(--yellow);
+}
+.about{
+    font-size: 0.5em;
+    color: #555;
 }
