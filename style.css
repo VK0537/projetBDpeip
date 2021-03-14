@@ -10,7 +10,6 @@
     --yellow:#FFC600;
     --dark-blue:#151E3F;
     --light-grey:#F6F6F6;
-    --gradient-height:" ";
 }
 html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockquote, input, pre, a, address, big, cite, code, del, em, img, strong, var, ol, ul, li, fieldset, form, label, legend, table, caption, tr, th, td, article, embed,  header, main, footer, hgroup, menu, nav, output, button {
     margin: 0;
@@ -33,7 +32,6 @@ body{
 h1{
     font-size: 2.5em;
     color: inherit;
-    /* padding-left: 1em; */
     font-weight: bold;
     padding-bottom: 0.5em;
 }
@@ -62,26 +60,24 @@ button{
 input{
     display: inline-block;
     padding: 3px 5px;
+    margin: 0.5em;
+    border-radius: 5px;
 }
 .main-wrap{
-    /* background-color: var(--light-grey); */
     position: relative;
     z-index: 1;
 }
-.main-wrap::before{
+.index-main-wrap::before{
     content: "";
     display: block;
     position: absolute;
     min-height: 367px;
-    height: attr(gradient-height);
+    height: attr(grad-height);
     width: 100%;
     top: 100px;
     left: 0;
     z-index: -1;
-    /* background: var(--dark-blue); */
-    /* opacity: .5; */
     background: linear-gradient(180deg, #151E3F 0%, #151E3F44 100%); 
-    /* border-bottom: 3px solid #FFC600; */
 }
 .header{
     background-color: var(--dark-blue);
@@ -148,11 +144,9 @@ a.nav-item:hover{
     color:var(--yellow);
 }
 .nav-item--searchbar{
-    /* margin-left: 50px; */
     font-size: 0;
     flex-grow: inherit;
     text-align: right;
-    /* height: 2rem; */
 }
 #searchbar{
     background-color: var(--dark-blue);
@@ -167,6 +161,7 @@ a.nav-item:hover{
     border-top: none;
     border-left: none;
     border-right: none;
+    border-radius: 0;
     font-size: 2rem;
     padding: 3px;
     padding-bottom: 7px;
@@ -176,7 +171,6 @@ main{
     display: block;
     padding: 1.2em;
     margin: auto;
-    /* background-color: var(--light-grey); */
     max-width: 900px;
 }
 .content-item{
@@ -207,7 +201,6 @@ main{
 .card{
     display: flex;
     flex-direction: column;
-    /* border: 1px solid var(--dark-blue); */
     border-radius: 1.25em;
     background-color: var(--yellow);
     height: 300px;
@@ -243,43 +236,91 @@ main{
 footer{
     background-color: var(--dark-blue);
     padding: 1em;
+    text-align: center;
 }
-.newsletter{
+#newsletter{
     margin: 25px 25%;
+    text-align: left;
 }
-.newsletter h2{
+#newsletter h2{
     color: var(--light-grey);
 }
-.newsletter p{
+#newsletter p{
     color: var(--light-grey);
 }
 .newsletter__email{
     text-align: center;
 }
-#nl-email__field{
-    border-radius: 5px;
-    margin: 0.5em;
+input[type=text],input[type=email],input[type=password]{
     width: 300px;
 }
-/* #nl-email__field:invalid{
+/* input[type=text]:invalid,input[type=email]:invalid,input[type=password]:invalid{
     color: red;
 } */
-#nl-email__submit{
-    display: inline-block;
-    margin: 0.5em;
-}
-#nl-email__submit:hover{
+input[type=submit]:hover{
     color: var(--light-grey);
     background-color: var(--yellow);
 }
 .about{
+    display: inline-block;
     font-size: 0.5em;
     color: #555;
 }
-.about:hover{
+.about a::before{
+    content: "";
+    display: inline-block;
+    height: .5em;
+    width: .5em;
+    margin: 0 .5em 0 .5em;
+    background-color: #555;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+.about a:hover{
     text-decoration: underline;
 }
 .about img{
-    height: 1em;
+    height: 1.2em;
     vertical-align: sub;
+}
+#register{
+    position: relative;
+    padding: 25px;
+    border-radius: 1.25em;
+    background-color: var(--light-grey);
+    box-shadow: 5px 5px 5px #888;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+    align-items: baseline;
+}
+.register-field{
+    display: flex;
+    flex-wrap: wrap;   
+    gap: 10px; 
+}
+.register-field>input{
+    margin: 0;
+    flex: 200px 3;
+}
+#register h2{
+    grid-column: span 2;
+    /* justify-self: left; */
+    padding: 0 0 10px 0;
+}
+#register label{
+    margin-right: 10px;
+    font-weight: lighter;
+}
+
+#register input[type=submit]{
+    grid-column: span 2;
+    justify-self: center;
+    width: min-content;
+    padding: .5em;
+}
+#register>a{
+    position: absolute;
+    top: 5%;
+    left: 85%;
 }
