@@ -256,23 +256,30 @@ footer{
 .newsletter__email{
     text-align: center;
 }
-#email-nl__field{
+#nl-email__field{
     border-radius: 5px;
     margin: 0.5em;
     width: 300px;
 }
-/* #email-nl__field:invalid{
+/* #nl-email__field:invalid{
     color: red;
 } */
-#email-nl__submit{
+#nl-email__submit{
     display: inline-block;
     margin: 0.5em;
 }
-#email-nl__submit:hover{
+#nl-email__submit:hover{
     color: var(--light-grey);
     background-color: var(--yellow);
 }
 .about{
     font-size: 0.5em;
     color: #555;
+}
+.about:hover{
+    text-decoration: underline;
+}
+.about img{
+    height: 1em;
+    vertical-align: sub;
 }

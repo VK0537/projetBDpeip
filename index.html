@@ -5,14 +5,15 @@
         <link rel='stylesheet' href='style.css'/>
         <title>Ptitips</title>
         <!-- <base href="localhost" target="_blank"> -->
-        <link rel="shortcut icon" href="#"/>
+        <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
+        <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
     </head>
     <body>
         <div class="main-wrap">
             <header class="header">
                 <nav class="nav nav--left">
                     <a class="nav-item nav-item--logo" href="index.html">
-                        <img class="logo" src="icones/logo.png" height="70" alt="Ptitips"/>
+                        <img class="logo" src="favicons/logo.png" height="70" alt="Ptitips"/>
                     </a>
                     <a class="nav-item nav-item--text" href="test.html">NEWS</a>
                     <div class="nav-item" id="tips">
@@ -28,7 +29,7 @@
                     <a class="nav-item nav-item--text" href="test.html">ABOUT&nbsp;US</a>
                 </nav>
                 <nav class="nav nav--right">
-                    <a class ="nav-item nav-item--logo" href="test.html"><img src="icones/userw.png" alt="Connexion"/></a>
+                    <a class ="nav-item nav-item--logo" href="test.html"><img src="favicons/userw.png" alt="Connexion"/></a>
                     <form class="nav-item nav-item--searchbar" action="#" method="GET" name="searchbar">
                         <input type="text" id="searchbar" name="search" placeholder="Search"/>
                     </form>
@@ -91,13 +92,13 @@
                     <h2>Newsletter</h2>
                     <p>Si tu veux être au courant des dernierres infos et articles, inscrirs-toi à notre newsletter&#8239;! Promis on va pas spammer...</p>
                     <div class="newsletter__email">
-                        <input id="email-nl__field" type="email" name="email-nl" placeholder="Email"/>
+                        <input id="nl-email__field" type="email" name="nl-email" placeholder="Email"/>
+                        <button id="nl-email__submit" type="submit" name="nl-submit">Go&#8239;!</button>
                         <!-- pattern="(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)" -->
-                        <button id="email-nl__submit" type="submit" name="submit-nl">Go&#8239;!</button>
                         <!-- <script>
                             function submitNewsletter(){
-                                if(document.getElementById('#email-nl')){
-                                    alert('a verification email have been sent to '+document.getElementById('#email-nl'));
+                                if(document.getElementById('#nl-email')){
+                                    alert('a verification email have been sent to '+document.getElementById('#nl-email'));
                                     document.getElementById('newsletter').submit();
                                 }else{
                                     alert('enter your email...');
@@ -107,7 +108,7 @@
                     </div>
                 </form>
                 <nav class="about">
-                    <a href="#">about us <img src="icones/amogus.png" height="0.5em"/></a>
+                    <a href="#">about us <img src="/favicons/amogus.png" height="10px"/></a>
                 </nav>
             </footer>
         </div>
@@ -125,7 +126,7 @@
                 let whiteContentHeight=document.querySelector('.content-item--white').clientHeight;
                 let mainWrap=document.querySelector('.main-wrap');
                 mainWrap.setAttribute('gradient-height',whiteContentHeight+'px');
-                window.addEventListener('resize',function(event){
+                window.addEventListener('resize',(event)=>{
                     let whiteContentHeight=document.querySelector('.content-item--white').clientHeight;
                     console.log(whiteContentHeight+'px');
                     mainWrap.setAttribute('gradient-height',whiteContentHeight+'px');

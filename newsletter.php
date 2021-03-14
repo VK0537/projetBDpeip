@@ -1,7 +1,7 @@
 <?php
 session_start();
-if(isset($_POST['submit-nl'])){
-    $_SESSION['email']=strtolower($_POST['email-nl']);
+if(isset($_POST['nl-submit'])){
+    $_SESSION['email']=strtolower($_POST['nl-email']);
     header('Location:index.html#newsletter');
     exit;
 };
