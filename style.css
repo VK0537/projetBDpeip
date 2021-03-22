@@ -63,6 +63,14 @@ input{
     margin: 0.5em;
     border-radius: 5px;
 }
+/* select{
+    appearance: none;
+    display: inline-block;
+    padding: 3px 5px;
+    margin: 0.5em;
+    border: 0;
+    border-radius: 5px;
+} */
 .main-wrap{
     position: relative;
     z-index: 1;
@@ -79,6 +87,9 @@ input{
     z-index: -1;
     background: linear-gradient(180deg, #151E3F 0%, #151E3F44 100%); 
 }
+/* @media (width<455px){
+    .index-main-wrap::before{height:533px}
+} */
 .header{
     background-color: var(--dark-blue);
     position: -webkit-sticky;
@@ -323,4 +334,13 @@ input[type=submit]:hover{
     position: absolute;
     top: 5%;
     left: 85%;
+}
+#formation{
+    appearance: none;
+    display: inline-block;
+    padding: 3px 5px;
+    margin: 0.5em;
+    border: 0;
+    border-radius: 5px;
+    color: red;
 }

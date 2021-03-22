@@ -14,7 +14,7 @@
                 <!-- #include file="include_head.html" -->
                 <nav class="nav nav--left">
                     <a class="nav-item nav-item--logo" href="index.html">
-                        <img class="logo" src="favicons/logo.png" height="70" alt="Ptitips"/>
+                        <img class="logo" src="favicons/logo.png" height=70 alt="Ptitips"/>
                     </a>
                     <a class="nav-item nav-item--text" href="test.html">NEWS</a>
                     <div class="nav-item" id="tips">
@@ -49,8 +49,8 @@
                     </div>
                     <div class="register-field">
                         <label for="password">Mot de passe : </label>
-                        <input name="password" type="password" placeholder="mot de passe" 
-                        pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$" name="password" 
+                        <input id="password" type="password" placeholder="mot de passe" name="password" 
+                        pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
                         required title="doit contenir une lettre, un chiffre et un caractère spécial">
                     </div>
                     <div class="register-field">
@@ -58,13 +58,16 @@
                         <input id="age" type="text" placeholder="Age" pattern="\d{2}" name="age" required>
                     </div>
                     <div class="register-field">
-                        <label for="lieu">Lieu d'études : </label>
-                        <input id="lieu" type="text" placeholder="Lieu d'etude" pattern="[a-zA-Z]{0,30}" name="lieu">
+                        <label for="lieu">Ville : </label>
+                        <input id="ville" type="text" placeholder="Ville" pattern="[a-zA-Z]{0,30}" name="ville" list="villes">
+                        <datalist id="villes">
+                            <option value="tours">Tours</option>
+                        </datalist>
                     </div>
                     <div class="register-field">
-                        <label for="formation">Formation : </label>
-                        <!-- <input id="formation" type="text" placeholder="Formation" pattern="{2,20}" name="formation"> -->
-                        <select name="formation" id="formation">
+                        <label for="domaine">Domaine de Formation ou d'Activité : </label>
+                        <!-- <input id="domaine" type="text" placeholder="Domaine de Formation et d'activité" pattern="{2,20}" name="domaine"> -->
+                        <select name="domaine" id="domaine">
                             <option value="">Choisir un domaine</option>
                             <option value="1">agriculture, animalier</option>
                             <option value="2">armée, sécurité</option>
@@ -96,7 +99,7 @@
             <footer>
                 <form id="newsletter" action="newsletter.php" method="POST" target="_self">
                     <h2>Newsletter</h2>
-                    <p>Si tu veux être au courant des dernierres infos et articles, inscris-toi à notre newsletter&#8239;!</br>Promis on va pas spammer...</p>
+                    <p>Si tu veux être au courant des dernierres infos et articles, inscris-toi à notre newsletter&#8239;!<br/>Promis on va pas spammer...</p>
                     <div class="newsletter__email">
                         <input id="nl-email__field" type="email" name="nl-email" placeholder="Email"/>
                         <input id="nl-email__submit" type="submit" name="nl-submit" value="Go&#8239;!">
@@ -104,7 +107,7 @@
                     </div>
                 </form>
                 <nav class="about">
-                    <a href="#">about us <img src="/favicons/amogus.png" height="10px"/></a>
+                    <a href="#">about us <img src="/favicons/amogus.png" height=10 alt=""/></a>
                     <a href="/plan.html">plan du site</a>
                 </nav>
             </footer>
