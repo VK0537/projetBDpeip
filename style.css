@@ -128,9 +128,6 @@ input{
 a.nav-item:hover{
     text-decoration: underline;
 }
-.nav-item a:hover{
-    text-decoration: underline;
-}
 .nav-item__hover{
     display: none;
     position: absolute;

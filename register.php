@@ -1,3 +1,10 @@
+<?php
+$mysqli=new mysqli("localhost","root","TF77qX8LPxVhb-U","ptitips");
+if ($conn->connect_error) {
+    die("Connection failed: ".$conn->connect_error);
+  }
+  echo "Connected successfully";
+?>
 <!DOCTYPE html>
 <html lang='fr'>
     <head>
