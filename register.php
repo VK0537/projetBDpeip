@@ -1,9 +1,52 @@
 <?php
-$mysqli=new mysqli("localhost","root","TF77qX8LPxVhb-U","ptitips");
-if ($conn->connect_error) {
-    die("Connection failed: ".$conn->connect_error);
-  }
-  echo "Connected successfully";
+$mysqli=new mysqli("localhost","ptitipsadmin","dCvvcttP]LZ=BHh","ptitips");
+$mysqli->set_charset('utf8mb4');
+if ($mysqli->connect_error) {
+    die("Connection failed: ".$mysqli->connect_error);
+};
+echo "Connected successfully";
+
+session_start();
+if(isset($_POST['reg-register'])){
+    $_SESSION['reg-username']=strtolower($_POST['reg-username']);
+    $_SESSION['reg-email']=strtolower($_POST['reg-email']);
+    $_SESSION['reg-password']=strtolower($_POST['reg-password']);
+    $_SESSION['reg-age']=strtolower($_POST['reg-age']);
+    $_SESSION['reg-ville']=strtolower($_POST['reg-ville']);
+    $_SESSION['reg-domaine']=strtolower($_POST['reg-domaine']);
+    header('Location:register.php');
+    exit;
+};
+if(isset($_SESSION['reg-domaine'])){
+    $username=$_SESSION['reg-username'];
+    $email=$_SESSION['reg-email'];
+    $password=$_SESSION['reg-password'];
+    $age=$_SESSION['reg-age'];
+    $ville=$_SESSION['reg-ville'];
+    $domaine=$_SESSION['reg-domaine'];
+    if(
+        !empty($username) and 
+        !empty($email) and 
+        !empty($password) and 
+        !empty($age) and 
+        ctype_alnum($username) and
+        filter_var($email, FILTER_VALIDATE_EMAIL)
+      ){
+        $headers='Content-type: text/html; charset=utf-8'.'\r\n'.
+        'Return-Path: ptitipsfr@gmail.com'.'\r\n'.
+        'Reply-To: ptitipsfr@gmail.com'.'\r\n'.
+        'Errors-To: ptitipsfr@gmail.com'.'\r\n'.
+        "To: {$email}".'\r\n'.
+        'From: ptitipsfr@gmail.com';
+        mail($email,"Merci de t'être inscrit...",'hello',$headers);
+        // add email to database and change special chars to &;
+        echo '<script>alert("a verification email have been sent to {$email}.");</script>';
+    }
+    else{
+        echo("<script>alert('empty');</script>");
+    };
+    unset($_SESSION['email']);
+}
 ?>
 <!DOCTYPE html>
 <html lang='fr'>
@@ -47,34 +90,44 @@ if ($conn->connect_error) {
                 <form id="register" action="#" method="POST" target="_self">
                     <h2>Inscription</h2>
                     <div class="register-field">
-                        <label for="username">Nom d'utilisateur : </label>
-                        <input id="username" type="text" placeholder="nom d'utilisateur" pattern="\w{2,20}" name="username" required>
+                        <label for="reg-username">Nom d'utilisateur : </label>
+                        <input id="reg-username" type="text" placeholder="pseudo" pattern="\w{2,20}" name="reg-username" required>
                     </div>
                     <div class="register-field">
-                        <label for="email">Adresse email : </label>
-                        <input id="email" type="email" placeholder="email" name="email" required>
+                        <label for="reg-name">Nom : </label>
+                        <input id="reg-name" type="text" placeholder="nom" pattern="\w{2,20}" name="reg-name" required>
                     </div>
                     <div class="register-field">
-                        <label for="password">Mot de passe : </label>
-                        <input id="password" type="password" placeholder="mot de passe" name="password" 
+                        <label for="reg-lname">Prénom : </label>
+                        <input id="reg-lname" type="text" placeholder="prénom" pattern="\w{2,20}" name="reg-lname" required>
+                    </div>
+                    <div class="register-field">
+                        <label for="reg-email">Adresse email : </label>
+                        <input id="reg-email" type="email" placeholder="email" name="reg-email" required>
+                    </div>
+                    <div class="register-field">
+                        <label for="reg-password">Mot de passe : </label>
+                        <input id="reg-password" type="password" placeholder="mot de passe" name="reg-password" 
                         pattern="^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$"
                         required title="doit contenir une lettre, un chiffre et un caractère spécial">
                     </div>
                     <div class="register-field">
-                        <label for="age">Age : </label>
-                        <input id="age" type="text" placeholder="Age" pattern="\d{2}" name="age" required>
+                        <label for="reg-age">Age : </label>
+                        <input id="reg-age" type="text" placeholder="Age" pattern="\d{2}" name="reg-age" required>
                     </div>
                     <div class="register-field">
-                        <label for="lieu">Ville : </label>
-                        <input id="ville" type="text" placeholder="Ville" pattern="[a-zA-Z]{0,30}" name="ville" list="villes">
+                        <label for="reg-ville">Ville : </label>
+                        <input id="reg-ville" type="text" placeholder="Ville" pattern="[a-zA-Z]{0,30}" name="reg-ville" list="villes">
                         <datalist id="villes">
                             <option value="tours">Tours</option>
+                            <option value="paris">Paris</option>
+                            <!-- api google maps -->
                         </datalist>
                     </div>
                     <div class="register-field">
-                        <label for="domaine">Domaine de Formation ou d'Activité : </label>
-                        <!-- <input id="domaine" type="text" placeholder="Domaine de Formation et d'activité" pattern="{2,20}" name="domaine"> -->
-                        <select name="domaine" id="domaine">
+                        <label for="reg-domaine">Domaine de Formation ou d'Activité : </label>
+                        <!-- <input id="reg-domaine" type="text" placeholder="Domaine de Formation et d'activité" pattern="{2,20}" name="domaine"> -->
+                        <select name="reg-domaine" id="reg-domaine">
                             <option value="">Choisir un domaine</option>
                             <option value="1">agriculture, animalier</option>
                             <option value="2">armée, sécurité</option>
@@ -99,7 +152,7 @@ if ($conn->connect_error) {
                             <option value="21">sport</option>
                         </select>
                     </div>
-                    <input id="submit" type="submit" value="LOGIN" >
+                    <input id="reg-submit" type="submit" name="reg-submit" value="LOGIN" >
                     <a href="/connexion.html">Connexion</a>
                 </form>
             </main>

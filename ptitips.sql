@@ -153,13 +153,6 @@ CREATE TABLE `utilisateur` (
   `idNewslet` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
---
--- Déchargement des données de la table `utilisateur`
---
-
-INSERT INTO `utilisateur` (`idUser`, `nom`, `prenom`, `pseudo`, `email`, `isAdmin`, `dob`, `idVille`, `idDomaine`, `idNewslet`) VALUES
-(1, 'Brothier', 'Viktor', 'VK0537', 'viktor.brothier@gmail.com', 1, '2003-05-29', 37200, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -179,10 +172,6 @@ INSERT INTO `ville` (`idVille`, `nom`) VALUES
 (37000, 'Tours'),
 (37100, 'Tours'),
 (37200, 'Tours');
-
---
--- Index pour les tables déchargées
---
 
 --
 -- Index pour la table `appartenir`
