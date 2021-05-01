@@ -141,30 +141,32 @@ if(isset($_SESSION['reg-domaine'])){
                     <div class="register-field">
                         <label for="reg-domaine">Domaine de Formation ou d'Activité : </label>
                         <!-- <input id="reg-domaine" type="text" placeholder="Domaine de Formation et d'activité" pattern="{2,20}" name="domaine"> -->
-                        <select name="reg-domaine" id="reg-domaine">
-                            <option value="">Choisir un domaine</option>
-                            <option value="1">agriculture, animalier</option>
-                            <option value="2">armée, sécurité</option>
-                            <option value="3">arts, culture, artisanat</option>
-                            <option value="4">banque, assurances,immobilier</option>
-                            <option value="5">commerce, marketing, vente</option>
-                            <option value="6">construction, architecture, travaux publics</option>
-                            <option value="7">économie, droit, politique</option>
-                            <option value="8">électricité, électronique, robotique</option>
-                            <option value="9">environnement, énergies, propreté</option>
-                            <option value="10">gestion des entreprises, comptabilité</option>
-                            <option value="11">histoire/géographie, psychologie, sociologie</option>
-                            <option value="12">hôtellerie, restauration, tourisme</option>
-                            <option value="13">information, communication, audiovisuel</option>
-                            <option value="14">informatique, internet</option>
-                            <option value="15">lettres, langues, enseignement</option>
-                            <option value="16">logistique, transport</option>
-                            <option value="17">fabrication, industrie, matières premières</option>
-                            <option value="18">mécanique</option>
-                            <option value="19">santé, social</option>
-                            <option value="20">sciences</option>
-                            <option value="21">sport</option>
-                        </select>
+                        <div class="selectdiv">
+                            <select name="reg-domaine" id="reg-domaine">
+                                <option value="">Choisir un domaine</option>
+                                <option value="1">agriculture, animalier</option>
+                                <option value="2">armée, sécurité</option>
+                                <option value="3">arts, culture, artisanat</option>
+                                <option value="4">banque, assurances,immobilier</option>
+                                <option value="5">commerce, marketing, vente</option>
+                                <option value="6">construction, architecture, travaux publics</option>
+                                <option value="7">économie, droit, politique</option>
+                                <option value="8">électricité, électronique, robotique</option>
+                                <option value="9">environnement, énergies, propreté</option>
+                                <option value="10">gestion des entreprises, comptabilité</option>
+                                <option value="11">histoire/géographie, psychologie, sociologie</option>
+                                <option value="12">hôtellerie, restauration, tourisme</option>
+                                <option value="13">information, communication, audiovisuel</option>
+                                <option value="14">informatique, internet</option>
+                                <option value="15">lettres, langues, enseignement</option>
+                                <option value="16">logistique, transport</option>
+                                <option value="17">fabrication, industrie, matières premières</option>
+                                <option value="18">mécanique</option>
+                                <option value="19">santé, social</option>
+                                <option value="20">sciences</option>
+                                <option value="21">sport</option>
+                            </select>
+                        </div>
                     </div>
                     <input id="reg-submit" type="submit" name="reg-submit" value="INSCRIPTION" >
                     <a id='connectinstead' href="/connexion.html">Connexion</a>
@@ -207,5 +209,6 @@ if(isset($_SESSION['reg-domaine'])){
                 },once=false);
             };
         </script>
+        <script src='select.js'></script>
     </body>
 </html>

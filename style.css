@@ -66,14 +66,6 @@ input{
     margin: 0.5em;
     border-radius: 5px;
 }
-/* select{
-    appearance: none;
-    display: inline-block;
-    padding: 3px 5px;
-    margin: 0.5em;
-    border: 0;
-    border-radius: 5px;
-} */
 .main-wrap{
     position: relative;
     z-index: 1;
@@ -265,9 +257,9 @@ footer{
 input[type=text],input[type=email],input[type=password]{
     width: 300px;
 }
-input[type=text]:invalid,input[type=email]:invalid,input[type=password]:invalid{
+/* input[type=text]:invalid,input[type=email]:invalid,input[type=password]:invalid{
     color: red;
-}
+} */
 input[type=submit]:hover{
     color: var(--light-grey);
     background-color: var(--yellow);
@@ -337,15 +329,50 @@ input[type=submit]:hover{
     top: 5%;
     left: 85%;
 }
-#formation{
-    appearance: none;
-    display: inline-block;
-    padding: 3px 5px;
-    margin: 0.5em;
-    border: 0;
-    border-radius: 5px;
-    color: red;
-}
 #connectinstead:hover{
     color: var(--yellow);
 }
+.selectdiv{
+    position: relative;
+}
+.selectdiv select{
+    display: none;
+}
+.newselect{
+    background-color: var(--dark-blue);
+}
+.newselect:after {
+    position: absolute;
+    content: "";
+    top: 14px;
+    right: 10px;
+    width: 0;
+    height: 0;
+    border: 6px solid transparent;
+    border-color: #fff transparent transparent transparent;
+}
+.newselect.select-arrow-active:after {
+    border-color: transparent transparent #fff transparent;
+    top: 7px;
+}
+.select-items div,.newselect {
+    color: var(--light-grey);
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    cursor: pointer;
+}
+.select-items {
+    position: absolute;
+    background-color: var(--dark-blue);
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 99;
+}
+.select-hide{
+    display: none;
+}
+.select-items div:hover, .selected {
+    background-color: rgba(0, 0, 0, 0.1);
+  }
