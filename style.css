@@ -355,13 +355,6 @@ input[type=submit]:hover{
     border-color: transparent transparent #fff transparent;
     top: 7px;
 }
-.select-items div,.newselect {
-    color: var(--light-grey);
-    padding: 8px 16px;
-    border: 1px solid transparent;
-    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
-    cursor: pointer;
-}
 .select-items {
     position: absolute;
     background-color: var(--dark-blue);
@@ -369,6 +362,13 @@ input[type=submit]:hover{
     left: 0;
     right: 0;
     z-index: 99;
+}
+.select-items div,.newselect {
+    color: var(--light-grey);
+    padding: 8px 16px;
+    border: 1px solid transparent;
+    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    cursor: pointer;
 }
 .select-hide{
     display: none;
