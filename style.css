@@ -62,9 +62,9 @@ button{
 }
 input{
     display: inline-block;
-    padding: 3px 5px;
-    margin: 0.5em;
-    border-radius: 5px;
+    padding: .1em .3em;
+    margin: .5em;
+    border-radius: .25em;
 }
 .main-wrap{
     position: relative;
@@ -97,6 +97,7 @@ header{
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 0 20px var(--dark-blue);
+    z-index: 99;
 }
 .nav{
     display:flex;
@@ -254,15 +255,15 @@ footer{
 .newsletter__email{
     text-align: center;
 }
-input[type=text],input[type=email],input[type=password]{
+/* input[type=text],input[type=email],input[type=password]{
     width: 300px;
-}
+} */
 /* input[type=text]:invalid,input[type=email]:invalid,input[type=password]:invalid{
     color: red;
 } */
 input[type=submit]:hover{
-    color: var(--light-grey);
-    background-color: var(--yellow);
+    color: var(--light-grey) !important;
+    background-color: var(--yellow) !important;
 }
 .about{
     display: inline-block;
@@ -288,72 +289,82 @@ input[type=submit]:hover{
 }
 #register{
     position: relative;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    margin-top: 27px;
+    margin-bottom: 27px;
     padding: 25px;
     border-radius: 1.25em;
     background-color: var(--light-grey);
     box-shadow: 5px 5px 5px #888;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
     gap: 30px;
     align-items: baseline;
 }
 .register-field{
+    grid-column: span 2;
     display: flex;
     flex-wrap: wrap;   
     gap: 10px; 
 }
-.register-field>input{
+.register-field input{
     margin: 0;
-    flex: 200px 3;
+    flex-grow: 5;
+    width: 50px;
 }
-#register h2{
-    grid-column: span 2;
-    /* justify-self: left; */
-    padding: 0 0 10px 0;
+#register>h2{
+    grid-column: span 4;
+    justify-self: start;
+    padding: 0 0 10px 30px;
 }
 #register label{
     margin-right: 10px;
     font-weight: lighter;
 }
-
 #register input[type=submit]{
-    grid-column: span 2;
+    background-color: var(--dark-blue);
+    color: var(--light-grey);
+    grid-column: span 4;
     justify-self: center;
     width: min-content;
     padding: .5em;
 }
-#register>a{
+#connectinstead{
     position: absolute;
     top: 5%;
     left: 85%;
 }
+/* #connectinstead::before{
+    content:"Vous avez déja un compte ?"
+} */
 #connectinstead:hover{
     color: var(--yellow);
 }
+/* ------------------------------ */
 .selectdiv{
     position: relative;
+    font-size: .9em;
+    width: 100%;
 }
 .selectdiv select{
     display: none;
 }
 .newselect{
     background-color: var(--dark-blue);
+    border-radius: .25em;
 }
-.newselect:after {
+.newselect::after {
     position: absolute;
     content: "";
-    top: 14px;
+    top: 18px;
     right: 10px;
     width: 0;
     height: 0;
     border: 6px solid transparent;
-    border-color: #fff transparent transparent transparent;
+    border-color: #F6F6F6 transparent transparent transparent;
 }
-.newselect.select-arrow-active:after {
-    border-color: transparent transparent #fff transparent;
-    top: 7px;
+.newselect.select-arrow-active::after {
+    border-color: transparent transparent #F6F6F6 transparent;
+    top: 10px;
 }
 .select-items {
     position: absolute;
@@ -362,17 +373,23 @@ input[type=submit]:hover{
     left: 0;
     right: 0;
     z-index: 99;
+    height: 300px;
+    overflow-y: scroll;
+    border-radius: 0 0 .25em .25em;
 }
 .select-items div,.newselect {
     color: var(--light-grey);
-    padding: 8px 16px;
-    border: 1px solid transparent;
-    border-color: transparent transparent rgba(0, 0, 0, 0.1) transparent;
+    padding: .4em .8em;
+    border: 3px solid transparent;
+    border-color: transparent transparent rgba(0, 0, 0, 0.2) transparent;
     cursor: pointer;
 }
 .select-hide{
     display: none;
 }
+.select-radius{
+    border-radius: .25em .25em 0 0 !important;
+}
 .select-items div:hover, .selected {
     background-color: rgba(0, 0, 0, 0.1);
-  }
+}

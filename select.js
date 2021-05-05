@@ -39,6 +39,7 @@ for (let i = 0; i < l; i++) {
   newselect.addEventListener("click", function(e) {
     e.stopPropagation();
     closeAllSelect(this);
+    this.classList.toggle("select-radius");
     this.nextSibling.classList.toggle("select-hide");
     this.classList.toggle("select-arrow-active");
   });

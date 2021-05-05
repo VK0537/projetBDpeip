@@ -1,9 +1,9 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 5.1.0
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : ven. 16 avr. 2021 à 16:35
+-- Généré le : mer. 05 mai 2021 à 04:22
 -- Version du serveur :  10.4.17-MariaDB
 -- Version de PHP : 8.0.1
 
@@ -58,17 +58,6 @@ CREATE TABLE `avoir` (
 -- --------------------------------------------------------
 
 --
--- Structure de la table `concerner`
---
-
-CREATE TABLE `concerner` (
-  `idGroupe` int(11) NOT NULL,
-  `idVille` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
-
--- --------------------------------------------------------
-
---
 -- Structure de la table `domaine`
 --
 
@@ -96,7 +85,8 @@ CREATE TABLE `ecrire` (
 
 CREATE TABLE `groupe` (
   `idGroupe` int(11) NOT NULL,
-  `nom` varchar(10) NOT NULL
+  `nom` varchar(10) NOT NULL,
+  `idVille` varchar(120) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -147,10 +137,10 @@ CREATE TABLE `utilisateur` (
   `pseudo` varchar(30) NOT NULL,
   `email` varchar(50) NOT NULL,
   `isAdmin` tinyint(1) NOT NULL,
-  `dob` date NOT NULL,
-  `idVille` int(11) DEFAULT NULL,
-  `idDomaine` int(11) DEFAULT NULL,
-  `idNewslet` int(11) DEFAULT NULL
+  `age` date NOT NULL,
+  `idVille` varchar(120) NOT NULL,
+  `idDomaine` int(11) NOT NULL,
+  `idNewslet` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -160,18 +150,13 @@ CREATE TABLE `utilisateur` (
 --
 
 CREATE TABLE `ville` (
-  `idVille` int(11) NOT NULL,
+  `idVille` varchar(120) NOT NULL,
   `nom` varchar(10) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Déchargement des données de la table `ville`
+-- Index pour les tables déchargées
 --
-
-INSERT INTO `ville` (`idVille`, `nom`) VALUES
-(37000, 'Tours'),
-(37100, 'Tours'),
-(37200, 'Tours');
 
 --
 -- Index pour la table `appartenir`
@@ -194,13 +179,6 @@ ALTER TABLE `avoir`
   ADD KEY `Avoir_tag0_FK` (`idTag`);
 
 --
--- Index pour la table `concerner`
---
-ALTER TABLE `concerner`
-  ADD PRIMARY KEY (`idGroupe`,`idVille`),
-  ADD KEY `Concerner_ville0_FK` (`idVille`);
-
---
 -- Index pour la table `domaine`
 --
 ALTER TABLE `domaine`
@@ -217,7 +195,8 @@ ALTER TABLE `ecrire`
 -- Index pour la table `groupe`
 --
 ALTER TABLE `groupe`
-  ADD PRIMARY KEY (`idGroupe`);
+  ADD PRIMARY KEY (`idGroupe`),
+  ADD KEY `groupe_ville_FK` (`idVille`);
 
 --
 -- Index pour la table `newsletteruser`
@@ -272,18 +251,17 @@ ALTER TABLE `avoir`
   ADD CONSTRAINT `Avoir_tag0_FK` FOREIGN KEY (`idTag`) REFERENCES `tag` (`idTag`);
 
 --
--- Contraintes pour la table `concerner`
---
-ALTER TABLE `concerner`
-  ADD CONSTRAINT `Concerner_groupe_FK` FOREIGN KEY (`idGroupe`) REFERENCES `groupe` (`idGroupe`),
-  ADD CONSTRAINT `Concerner_ville0_FK` FOREIGN KEY (`idVille`) REFERENCES `ville` (`idVille`);
-
---
 -- Contraintes pour la table `ecrire`
 --
 ALTER TABLE `ecrire`
   ADD CONSTRAINT `Ecrire_article_FK` FOREIGN KEY (`idArticle`) REFERENCES `article` (`idArticle`),
   ADD CONSTRAINT `Ecrire_utilisateur0_FK` FOREIGN KEY (`idUser`) REFERENCES `utilisateur` (`idUser`);
+
+--
+-- Contraintes pour la table `groupe`
+--
+ALTER TABLE `groupe`
+  ADD CONSTRAINT `groupe_ville_FK` FOREIGN KEY (`idVille`) REFERENCES `ville` (`idVille`);
 
 --
 -- Contraintes pour la table `sujet`

@@ -41,13 +41,23 @@ if(isset($_SESSION['reg-domaine'])){
                 !preg_match('/[\W]+/',$password)){
             echo '<script>alert("Le mot de passe doit contenir 8 charactères dont : une lettre majuscule, une minuscule, un chiffre et un symbole");</script>';
         }else{
+            //--------------------------------
+            mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
             $mysqli=new mysqli("localhost","ptitipsadmin","dCvvcttP]LZ=BHh","ptitips");
             if ($mysqli->connect_error) {
                 die("Connection failed: ".$mysqli->connect_error);
             };
             $mysqli->set_charset('utf8mb4');
+            $username=mysqli_real_escape_string($mysqli,$username);
+            $email=mysqli_real_escape_string($mysqli,$email);
+            $password=mysqli_real_escape_string($mysqli,$password);
+            $ville=mysqli_real_escape_string($mysqli,$ville);
+            $domaine=mysqli_real_escape_string($mysqli,$domaine);
+            $mysqli->query("INSERT INTO utilisateur VALUES ()");
+
             // id , nom , prenom , pseudo , email , isAdmin , dob , idVille , idDomaine , idNews
-            //$mysqli->query("INSERT INTO utilisateur VALUES ('".$mysqli->real_escape_string())
+            // $mysqli->query("INSERT INTO utilisateur VALUES ('".$mysqli->real_escape_string())
+            //--------------------------------
         }
     }else{
         echo '<script>alert("L\'un des champs requis est vide");</script>';
@@ -71,6 +81,30 @@ if(isset($_SESSION['reg-domaine'])){
         <!-- <base href="localhost" target="_blank"> -->
         <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
+        <script>
+        let autocomplete, addressField, options;
+        function initMap(){
+            addressField = document.querySelector("#reg-ville");
+            options = {
+                componentRestrictions: { country: "fr" },
+                fields: ["address_components","place_id"],
+                types: ['(cities)']
+            }
+            autocomplete = new google.maps.places.Autocomplete(addressField, options);
+            addressField.focus();
+            autocomplete.addListener("place_changed", fillInAddress);
+        }
+        function fillInAddress(){
+            let place = autocomplete.getPlace();
+            try{
+                let nomVille = place.address_components[0].short_name;
+                let idVille = place.place_id;
+                addressField.value = nomVille;
+            }catch(err){
+                if(err instanceof TypeError){};
+            }
+        }
+        </script>
     </head>
     <body>
         <div class="main-wrap">
@@ -104,11 +138,11 @@ if(isset($_SESSION['reg-domaine'])){
                 <form id="register" action="#" method="POST" target="_self">
                     <h2>Inscription</h2>
                     <div class="register-field">
-                        <label for="reg-username">Nom d'utilisateur : </label>
+                        <label for="reg-username">Pseudo : </label>
                         <input id="reg-username" type="text" placeholder="pseudo" pattern="\w{2,20}" name="reg-username" required>
                     </div>
                     <div class="register-field">
-                        <label for="reg-email">Adresse email : </label>
+                        <label for="reg-email">Email : </label>
                         <input id="reg-email" type="email" placeholder="email" name="reg-email" required>
                     </div>
                     <div class="register-field">
@@ -119,31 +153,31 @@ if(isset($_SESSION['reg-domaine'])){
                         <label for="reg-name">Prénom : </label>
                         <input id="reg-name" type="text" placeholder="prénom" pattern="\w{2,20}" name="reg-name" required>
                     </div>
-                    <div class="register-field">
+                    <div class="register-field" style="grid-column: span 3">
                         <label for="reg-password">Mot de passe : </label>
                         <input id="reg-password" type="password" placeholder="mot de passe" name="reg-password" 
                         required title="doit contenir 8 charactères dont : une lettre majuscule, une minuscule, un chiffre et un symbole" 
                         pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,}">
                     </div>
-                    <div class="register-field">
+                    <div class="register-field" style="grid-column: span 1">
                         <label for="reg-age">Age : </label>
-                        <input id="reg-age" type="text" placeholder="Age" pattern="\d{2}" name="reg-age" required>
+                        <input id="reg-age" type="text" placeholder="age" pattern="\d{2}" name="reg-age" required >
                     </div>
                     <div class="register-field">
                         <label for="reg-ville">Ville : </label>
-                        <input id="reg-ville" type="text" placeholder="Ville" pattern="[a-zA-Z]{0,30}" name="reg-ville" list="villes">
-                        <datalist id="villes">
+                        <input id="reg-ville" type="text" placeholder="ville" pattern="[a-zA-Z]{0,30}" name="reg-ville">
+                         <!-- list="villes"> -->
+                        <!-- <datalist id="villes">
                             <option value="Tours">Tours</option>
                             <option value="Paris">Paris</option>
-                            <!-- api google maps -->
-                        </datalist>
+                        </datalist> -->
                     </div>
                     <div class="register-field">
-                        <label for="reg-domaine">Domaine de Formation ou d'Activité : </label>
+                        <!-- <label for="reg-domaine">Domaine de Formation ou d'Activité : </label> -->
                         <!-- <input id="reg-domaine" type="text" placeholder="Domaine de Formation et d'activité" pattern="{2,20}" name="domaine"> -->
                         <div class="selectdiv">
                             <select name="reg-domaine" id="reg-domaine">
-                                <option value="">Choisir un domaine</option>
+                                <option value="">Choisir un domaine d'activité : </option>
                                 <option value="1">agriculture, animalier</option>
                                 <option value="2">armée, sécurité</option>
                                 <option value="3">arts, culture, artisanat</option>
@@ -175,7 +209,7 @@ if(isset($_SESSION['reg-domaine'])){
             <footer>
                 <form id="newsletter" action="newsletter.php" method="POST" target="_self">
                     <h2>Newsletter</h2>
-                    <p>Si tu veux être au courant des dernierres infos et articles, inscris-toi à notre newsletter&#8239;!<br/>Promis on va pas spammer...</p>
+                    <p>Si tu veux être au courant des dernières infos et articles, inscris-toi à notre newsletter&#8239;!<br/>Promis on va pas spammer...</p>
                     <div class="newsletter__email">
                         <input id="nl-email__field" type="email" name="nl-email" placeholder="Email"/>
                         <input id="nl-email__submit" type="submit" name="nl-submit" value="Go&#8239;!">
@@ -210,5 +244,6 @@ if(isset($_SESSION['reg-domaine'])){
             };
         </script>
         <script src='select.js'></script>
+        <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABDKaQdkzI2l_KLIvKN9jDCFYf-s_dxS4&libraries=places&callback=initMap"></script>
     </body>
 </html>
