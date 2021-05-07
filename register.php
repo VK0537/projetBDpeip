@@ -29,7 +29,7 @@ if(isset($_SESSION['reg-password'])){
         }elseif(!preg_match('/^((?![×Þß÷þðøÐ])[-\'\sa-zA-ZÀ-ÿ]){0,50}$/',$_SESSION['reg-name'])){
             echo '<script>alert("le prénom renseigné est invalide");</script>';
         }elseif(!checkdate($expldate[1],$expldate[2],$expldate[0])){
-            echo '<script>alert("l\'age renseigné est invalide");</script>';
+            echo '<script>alert("la date de naissance renseignée est invalide");</script>';
         }elseif(!filter_var($_SESSION['reg-email'], FILTER_VALIDATE_EMAIL)){
             echo '<script>alert("l\'email renseigné est invalide");</script>';
         }elseif(strlen($_SESSION['reg-password'])<8 or 
@@ -59,11 +59,10 @@ if(isset($_SESSION['reg-password'])){
             $cityExists=$request->get_result();
             $request->close();
             var_dump($cityExists);
-            if(!$cityExists){
+            if($cityExists->num_rows()===0){
                 if(empty($_SESSION['reg-cityId'])){
                     $_SESSION['reg-cityId']=$_SESSION['reg-city'];
                 };
-                echo "city {$_SESSION['reg-city']} does not exists yet";
                 $request=$mysqli->prepare("INSERT INTO `ville` (`idVille`,`nom`) VALUES (?,?)");
                 $request->bind_param("ss",$_SESSION['reg-cityId'],$_SESSION['reg-city']);
                 $request->execute();
@@ -75,17 +74,26 @@ if(isset($_SESSION['reg-password'])){
                     $request->execute();
                     $nameAndIdMatch=$request->get_result();
                     $request->close();
-                    if($nameAndIdMatch){
+                    if($nameAndIdMatch->num_rows()===1){
                         echo "yes";
                     }else{
-                        echo "no";
+                        echo $nameAndIdMatch->num_rows();
                     };
                 };
             };
-            // $request=$mysqli->prepare("INSERT INTO utilisateur (`nom`,`prenom`,`pseudo`,`email`,`age`,`idVille`,`idDomaine`) VALUES (?,?,?,?,?,?,?)");
-            // $request->bind_param("sssssss",);
-            // $request->execute();
-            // $request->close();
+            $request=$mysqli->prepare("INSERT INTO utilisateur (`nom`,`prenom`,`pseudo`,`email`,`password`,`dob`,`idVille`,`idDomaine`) VALUES (?,?,?,?,?,?,?)");
+            $request->bind_param("sssssss",
+            $_SESSION['reg-lname'],
+            $_SESSION['reg-name'],
+            $_SESSION['reg-username'],
+            $_SESSION['reg-email'],
+            $_SESSION['reg-password'],
+            $_SESSION['reg-dob'],
+            $_SESSION['reg-cityId'],
+            $_SESSION['reg-domaine'],
+            );
+            $request->execute();
+            $request->close();
             $mysqli->close();
             //-----------------------------------
         };
@@ -256,6 +264,17 @@ if(isset($_SESSION['reg-password'])){
             </footer>
         </div>
         <script>
+            if(document.querySelector('#reg-submit')!==null){
+                let inputs=document.querySelectorAll('#register input');
+                for(let i=0;i<inputs.length;i++){
+                    inputs[i].addEventListener('keydown',(event)=>{
+                        if(event.keyCode==13){
+                            event.preventDefault();
+                            return false;
+                        };
+                    });
+                }
+            };
             if(document.querySelector('#reg-username')!==null){
                 document.querySelector('#reg-username').focus();
             };

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 05 mai 2021 à 04:40
+-- Généré le : ven. 07 mai 2021 à 23:48
 -- Version du serveur :  10.4.17-MariaDB
 -- Version de PHP : 8.0.1
 
@@ -62,9 +62,36 @@ CREATE TABLE `avoir` (
 --
 
 CREATE TABLE `domaine` (
-  `idDomaine` int(11) NOT NULL,
-  `nom` varchar(10) NOT NULL
+  `idDomaine` int(2) NOT NULL,
+  `nom` varchar(120) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Déchargement des données de la table `domaine`
+--
+
+INSERT INTO `domaine` (`idDomaine`, `nom`) VALUES
+(1, 'agriculture, animalier'),
+(2, 'armée, sécurité'),
+(3, 'arts, culture, artisanat'),
+(4, 'banque, assurances,immobilier'),
+(5, 'commerce, marketing, vente'),
+(6, 'construction, architecture, travaux publics'),
+(7, 'économie, droit, politique'),
+(8, 'électricité, électronique, robotique'),
+(9, 'environnement, énergies, propreté'),
+(10, 'gestion des entreprises, comptabilité'),
+(11, 'histoire/géographie, psychologie, sociologie'),
+(12, 'hôtellerie, restauration, tourisme'),
+(13, 'information, communication, audiovisuel'),
+(14, 'informatique, internet'),
+(15, 'lettres, langues, enseignement'),
+(16, 'logistique, transport'),
+(17, 'fabrication, industrie, matières premières'),
+(18, 'mécanique'),
+(19, 'santé, social'),
+(20, 'sciences'),
+(21, 'sport');
 
 -- --------------------------------------------------------
 
@@ -108,7 +135,7 @@ CREATE TABLE `newsletteruser` (
 
 CREATE TABLE `sujet` (
   `idGroupe` int(11) NOT NULL,
-  `idDomaine` int(11) NOT NULL
+  `idDomaine` int(2) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -136,10 +163,11 @@ CREATE TABLE `utilisateur` (
   `prenom` varchar(50) NOT NULL,
   `pseudo` varchar(30) NOT NULL,
   `email` varchar(50) NOT NULL,
+  `password` varchar(120) NOT NULL,
   `isAdmin` tinyint(1) DEFAULT NULL,
-  `age` date NOT NULL,
+  `dob` date NOT NULL,
   `idVille` varchar(120) DEFAULT NULL,
-  `idDomaine` int(11) DEFAULT NULL,
+  `idDomaine` int(2) DEFAULT NULL,
   `idNewslet` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
@@ -233,6 +261,10 @@ ALTER TABLE `ville`
   ADD PRIMARY KEY (`idVille`);
 
 --
+-- AUTO_INCREMENT pour les tables déchargées
+--
+
+--
 -- AUTO_INCREMENT pour la table `article`
 --
 ALTER TABLE `article`
@@ -261,6 +293,10 @@ ALTER TABLE `tag`
 --
 ALTER TABLE `utilisateur`
   MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- Contraintes pour les tables déchargées
+--
 
 --
 -- Contraintes pour la table `appartenir`
