@@ -1,74 +1,106 @@
 <?php
 session_start();
+setlocale(LC_CTYPE, 'fr_FR');
 if(isset($_POST['reg-submit'])){
     $_SESSION['reg-username']=$_POST['reg-username'];
     $_SESSION['reg-lname']=$_POST['reg-lname'];
     $_SESSION['reg-name']=$_POST['reg-name'];
     $_SESSION['reg-email']=strtolower($_POST['reg-email']);
-    $_SESSION['reg-password']=$_POST['reg-password'];
-    $_SESSION['reg-age']=$_POST['reg-age'];
-    $_SESSION['reg-ville']=$_POST['reg-ville'];
+    $_SESSION['reg-dob']=$_POST['reg-dob'];
+    $_SESSION['reg-city']=$_POST['reg-city'];
+    $_SESSION['reg-cityId']=$_POST['reg-cityId'];
     $_SESSION['reg-domaine']=$_POST['reg-domaine'];
+    $_SESSION['reg-password']=$_POST['reg-password'];
     header('Location:register.php');
     exit;
 };
-if(isset($_SESSION['reg-domaine'])){
-    $username=$_SESSION['reg-username'];
-    $lname=$_SESSION['reg-lname'];
-    $name=$_SESSION['reg-name'];
-    $email=$_SESSION['reg-email'];
-    $password=$_SESSION['reg-password'];
-    $age=$_SESSION['reg-age'];
-    $ville=$_SESSION['reg-ville'];
-    $domaine=$_SESSION['reg-domaine'];
-
-    if(!empty($username) and !empty($lname) and !empty($name) and !empty($email) and !empty($password) and !empty($age)){
-        if(!ctype_alnum($username)){
-            //mettre la box en rouge
+if(isset($_SESSION['reg-password'])){
+    setlocale(LC_ALL, 'fr_FR');
+    if(!empty($_SESSION['reg-username']) and !empty($_SESSION['reg-lname']) and !empty($_SESSION['reg-name']) and !empty($_SESSION['reg-email']) 
+    and !empty($_SESSION['reg-password']) and !empty($_SESSION['reg-dob'])){
+        if(preg_match('/^(.*(,\sFrance))$/',$_SESSION['reg-city'])){
+            $_SESSION['reg-city']=substr($_SESSION['reg-city'],0,-8);
+        };
+        $expldate=explode("-",$_SESSION['reg-dob']);
+        if(!preg_match('/^((?![×Þß÷þðøÐ])[-\'_0-9a-zA-ZÀ-ÿ]){0,50}$/',$_SESSION['reg-username'])){
             echo '<script>alert("le nom d\'utilisateur renseigné est invalide");</script>';
-        }elseif(!ctype_alpha($lname)){
+        }elseif(!preg_match('/^((?![×Þß÷þðøÐ])[-\'\sa-zA-ZÀ-ÿ]){0,50}$/',$_SESSION['reg-lname'])){
             echo '<script>alert("le nom renseigné est invalide");</script>';
-        }elseif(!ctype_alpha($name)){
+        }elseif(!preg_match('/^((?![×Þß÷þðøÐ])[-\'\sa-zA-ZÀ-ÿ]){0,50}$/',$_SESSION['reg-name'])){
             echo '<script>alert("le prénom renseigné est invalide");</script>';
-        }elseif(!ctype_digit($age)){
+        }elseif(!checkdate($expldate[1],$expldate[2],$expldate[0])){
             echo '<script>alert("l\'age renseigné est invalide");</script>';
-        }elseif(!filter_var($email, FILTER_VALIDATE_EMAIL)){
+        }elseif(!filter_var($_SESSION['reg-email'], FILTER_VALIDATE_EMAIL)){
             echo '<script>alert("l\'email renseigné est invalide");</script>';
-        }elseif(strlen($password)<8 or 
-                !preg_match('/[0-9]+/',$password) or 
-                !preg_match('/[a-z]+/',$password) or 
-                !preg_match('/[A-Z]+/',$password) or 
-                !preg_match('/[\W]+/',$password)){
+        }elseif(strlen($_SESSION['reg-password'])<8 or 
+                !preg_match('/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[_\W])([!-~]){8,}$/',$_SESSION['reg-password'])){
             echo '<script>alert("Le mot de passe doit contenir 8 charactères dont : une lettre majuscule, une minuscule, un chiffre et un symbole");</script>';
+        }elseif(!empty($_SESSION['reg-city']) and !preg_match('/^((?![×Þß÷þðøÐ])[-\'\sa-zA-ZÀ-ÿ]){0,50}$/',$_SESSION['reg-city'])){
+            echo '<script>alert("la ville renseignée est invalide");</script>';
+        }elseif(!empty($_SESSION['reg-cityId']) and !preg_match('/^([-\w])+$/',$_SESSION['reg-cityId'])){
+            echo '<script>alert("valeur d\'Id de ville corrompue");</script>';
+        }elseif(!empty($_SESSION['reg-domaine']) and !ctype_digit($_SESSION['reg-domaine'])){
+            echo '<script>alert("valeur de domaine corrompue");</script>';
         }else{
-            //--------------------------------
+            foreach($_SESSION as &$val){
+
+                $val=htmlspecialchars($val);
+            };
+            //------------------------------------
             mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
             $mysqli=new mysqli("localhost","ptitipsadmin","dCvvcttP]LZ=BHh","ptitips");
             if ($mysqli->connect_error) {
                 die("Connection failed: ".$mysqli->connect_error);
             };
             $mysqli->set_charset('utf8mb4');
-            $username=mysqli_real_escape_string($mysqli,$username);
-            $email=mysqli_real_escape_string($mysqli,$email);
-            $password=mysqli_real_escape_string($mysqli,$password);
-            $ville=mysqli_real_escape_string($mysqli,$ville);
-            $domaine=mysqli_real_escape_string($mysqli,$domaine);
-            $mysqli->query("INSERT INTO utilisateur VALUES ()");
-
-            // id , nom , prenom , pseudo , email , isAdmin , dob , idVille , idDomaine , idNews
-            // $mysqli->query("INSERT INTO utilisateur VALUES ('".$mysqli->real_escape_string())
-            //--------------------------------
-        }
+            $request=$mysqli->prepare("SELECT `idVille` FROM `ville` WHERE `nom`=?");
+            $request->bind_param("s",$_SESSION['reg-city']);
+            $request->execute();
+            $cityExists=$request->get_result();
+            $request->close();
+            var_dump($cityExists);
+            if(!$cityExists){
+                if(empty($_SESSION['reg-cityId'])){
+                    $_SESSION['reg-cityId']=$_SESSION['reg-city'];
+                };
+                echo "city {$_SESSION['reg-city']} does not exists yet";
+                $request=$mysqli->prepare("INSERT INTO `ville` (`idVille`,`nom`) VALUES (?,?)");
+                $request->bind_param("ss",$_SESSION['reg-cityId'],$_SESSION['reg-city']);
+                $request->execute();
+                $request->close();
+            }else{
+                if(!empty($_SESSION['reg-cityId'])){
+                    $request=$mysqli->prepare("SELECT `idVille` FROM `ville` WHERE `nom`=? AND `idVille`=?");
+                    $request->bind_param("ss",$_SESSION['reg-city'],$_SESSION['reg-cityId']);
+                    $request->execute();
+                    $nameAndIdMatch=$request->get_result();
+                    $request->close();
+                    if($nameAndIdMatch){
+                        echo "yes";
+                    }else{
+                        echo "no";
+                    };
+                };
+            };
+            // $request=$mysqli->prepare("INSERT INTO utilisateur (`nom`,`prenom`,`pseudo`,`email`,`age`,`idVille`,`idDomaine`) VALUES (?,?,?,?,?,?,?)");
+            // $request->bind_param("sssssss",);
+            // $request->execute();
+            // $request->close();
+            $mysqli->close();
+            //-----------------------------------
+        };
     }else{
         echo '<script>alert("L\'un des champs requis est vide");</script>';
     };
+    unset($expldate);
     unset($_SESSION['reg-username']);
     unset($_SESSION['reg-lname']);
     unset($_SESSION['reg-name']);
     unset($_SESSION['reg-email']);
     unset($_SESSION['reg-password']);
-    unset($_SESSION['reg-age']);
-    unset($_SESSION['reg-ville']);
+    unset($_SESSION['reg-dob']);
+    unset($_SESSION['reg-city']);
+    unset($_SESSION['reg-cityId']);
     unset($_SESSION['reg-domaine']);
 }
 ?>
@@ -82,24 +114,23 @@ if(isset($_SESSION['reg-domaine'])){
         <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
         <script>
-        let autocomplete, addressField, options;
+        let autocomplete, addressField, idField, options;
         function initMap(){
-            addressField = document.querySelector("#reg-ville");
+            addressField = document.querySelector("#reg-city");
+            idField = document.querySelector("#reg-cityId");
             options = {
                 componentRestrictions: { country: "fr" },
                 fields: ["address_components","place_id"],
                 types: ['(cities)']
             }
             autocomplete = new google.maps.places.Autocomplete(addressField, options);
-            addressField.focus();
             autocomplete.addListener("place_changed", fillInAddress);
         }
         function fillInAddress(){
             let place = autocomplete.getPlace();
             try{
-                let nomVille = place.address_components[0].short_name;
-                let idVille = place.place_id;
-                addressField.value = nomVille;
+                addressField.value = place.address_components[0].short_name;
+                idField.value = place.place_id;
             }catch(err){
                 if(err instanceof TypeError){};
             }
@@ -128,7 +159,13 @@ if(isset($_SESSION['reg-domaine'])){
                     <a class="nav-item nav-item--text" href="test.html">CHAT</a>
                 </nav>
                 <nav class="nav nav--right">
-                    <a class ="nav-item nav-item--logo" href="register.php"><img src="favicons/userw.png" alt="Connexion"/></a>
+                    <div class="nav-item" id="usericon">
+                        <a class ="nav-item nav-item--logo" href="register.php"><img src="favicons/userw.png" alt="Inscription"/></a>
+                        <ul class="nav-item__hover" id="usericonhover">
+                            <li><a href="register.php">Inscription</a></li>
+                            <li><a href="login.php">Connexion</a></li>
+                        </ul>
+                    </div>
                     <form class="nav-item nav-item--searchbar" action="#" method="GET" name="searchbar">
                         <input type="text" id="searchbar" name="search" placeholder="Search"/>
                     </form>
@@ -137,47 +174,44 @@ if(isset($_SESSION['reg-domaine'])){
             <main>
                 <form id="register" action="#" method="POST" target="_self">
                     <h2>Inscription</h2>
-                    <div class="register-field">
+                    <div class="form-field" style="grid-column: span 2">
                         <label for="reg-username">Pseudo : </label>
-                        <input id="reg-username" type="text" placeholder="pseudo" pattern="\w{2,20}" name="reg-username" required>
+                        <input id="reg-username" type="text" placeholder="pseudo" pattern="^((?![×Þß÷þðøÐ])[-'_0-9a-zA-ZÀ-ÿ]){0,50}$" name="reg-username" 
+                        required title="peut contenir des lettres, chiffres, apostrophe, tiret et underscore">
                     </div>
-                    <div class="register-field">
-                        <label for="reg-email">Email : </label>
-                        <input id="reg-email" type="email" placeholder="email" name="reg-email" required>
-                    </div>
-                    <div class="register-field">
-                        <label for="reg-lname">Nom : </label>
-                        <input id="reg-lname" type="text" placeholder="nom" pattern="\w{2,20}" name="reg-lname" required>
-                    </div>
-                    <div class="register-field">
+                    <div class="form-field" style="grid-column: span 2">
                         <label for="reg-name">Prénom : </label>
-                        <input id="reg-name" type="text" placeholder="prénom" pattern="\w{2,20}" name="reg-name" required>
+                        <input id="reg-name" type="text" placeholder="Jean-Marie" pattern="^((?![×Þß÷þðøÐ])[-'\s0-9a-zA-ZÀ-ÿ]){0,50}$" name="reg-name" required>
                     </div>
-                    <div class="register-field" style="grid-column: span 3">
+                    <div class="form-field" style="grid-column: span 2">
+                        <label for="reg-lname">Nom : </label>
+                        <input id="reg-lname" type="text" placeholder="Bigard" pattern="^((?![×Þß÷þðøÐ])[-'\s0-9a-zA-ZÀ-ÿ]){0,50}$" name="reg-lname" required>
+                    </div>
+                    <div class="form-field" style="grid-column: span 3">
+                        <label for="reg-email">Email : </label>
+                        <input id="reg-email" type="email" placeholder="exemple@domain.com" name="reg-email" required>
+                    </div>
+                    <div class="form-field" style="grid-column: span 3">
                         <label for="reg-password">Mot de passe : </label>
-                        <input id="reg-password" type="password" placeholder="mot de passe" name="reg-password" 
+                        <input id="reg-password" type="password" placeholder="8 caractères" name="reg-password" 
                         required title="doit contenir 8 charactères dont : une lettre majuscule, une minuscule, un chiffre et un symbole" 
-                        pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[\W]).{8,}">
+                        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[_\W]).{8,}$">
                     </div>
-                    <div class="register-field" style="grid-column: span 1">
-                        <label for="reg-age">Age : </label>
-                        <input id="reg-age" type="text" placeholder="age" pattern="\d{2}" name="reg-age" required >
+                    <div class="form-field" style="grid-column: span 3">
+                        <label for="reg-dob">Date de Naissance : </label>
+                        <input id="reg-dob" type="date" placeholder="jj/mm/aaaa" name="reg-dob"min="1950-01-01" required >
                     </div>
-                    <div class="register-field">
-                        <label for="reg-ville">Ville : </label>
-                        <input id="reg-ville" type="text" placeholder="ville" pattern="[a-zA-Z]{0,30}" name="reg-ville">
-                         <!-- list="villes"> -->
-                        <!-- <datalist id="villes">
-                            <option value="Tours">Tours</option>
-                            <option value="Paris">Paris</option>
-                        </datalist> -->
+                    <div class="form-field" style="grid-column: span 3">
+                        <label for="reg-city">Ville : </label>
+                        <input id="reg-city" type="text" placeholder="Paris" pattern="^((?![×Þß÷þðøÐ])[-',\s0-9a-zA-ZÀ-ÿ]){0,50}$" name="reg-city">
                     </div>
-                    <div class="register-field">
-                        <!-- <label for="reg-domaine">Domaine de Formation ou d'Activité : </label> -->
-                        <!-- <input id="reg-domaine" type="text" placeholder="Domaine de Formation et d'activité" pattern="{2,20}" name="domaine"> -->
+                    <div class="form-field" style="display:none">
+                        <input id="reg-cityId" type="text" name="reg-cityId">
+                    </div>
+                    <div class="form-field">
                         <div class="selectdiv">
                             <select name="reg-domaine" id="reg-domaine">
-                                <option value="">Choisir un domaine d'activité : </option>
+                                <option value="0">Choisir un domaine d'activité : </option>
                                 <option value="1">agriculture, animalier</option>
                                 <option value="2">armée, sécurité</option>
                                 <option value="3">arts, culture, artisanat</option>
@@ -203,7 +237,7 @@ if(isset($_SESSION['reg-domaine'])){
                         </div>
                     </div>
                     <input id="reg-submit" type="submit" name="reg-submit" value="INSCRIPTION" >
-                    <a id='connectinstead' href="/connexion.html">Connexion</a>
+                    <a id='connectinstead' href="/login.php">Connexion</a>
                 </form>
             </main>
             <footer>
@@ -213,7 +247,6 @@ if(isset($_SESSION['reg-domaine'])){
                     <div class="newsletter__email">
                         <input id="nl-email__field" type="email" name="nl-email" placeholder="Email"/>
                         <input id="nl-email__submit" type="submit" name="nl-submit" value="Go&#8239;!">
-                        <!-- pattern="(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)" -->
                     </div>
                 </form>
                 <nav class="about">
@@ -223,24 +256,31 @@ if(isset($_SESSION['reg-domaine'])){
             </footer>
         </div>
         <script>
-            if(document.getElementById('tips')!==null && document.getElementById('tipshover')!==null){
-                let tips=document.getElementById('tips')
-                tips.addEventListener("mouseover",(event)=>{
-                    document.getElementById('tipshover').style.display='block'
+            if(document.querySelector('#reg-username')!==null){
+                document.querySelector('#reg-username').focus();
+            };
+            if(document.querySelector('#reg-dob')!==null){
+                let today=new Date().toJSON().slice(0,10);
+                document.querySelector('#reg-dob').setAttribute('max',today);
+                document.querySelector('#reg-dob').setAttribute('value',today);
+            };
+            if(document.querySelector('#usericon')!==null && document.querySelector('#usericonhover')!==null){
+                let usericon=document.querySelector('#usericon')
+                usericon.addEventListener("mouseover",(event)=>{
+                    document.querySelector('#usericonhover').style.display='block'
                 });
-                tips.addEventListener("mouseout",(event)=>{
-                    document.getElementById('tipshover').style.display='none'
+                usericon.addEventListener("mouseout",(event)=>{
+                    document.querySelector('#usericonhover').style.display='none'
                 });
             };
-            if(document.querySelector('.content-item--white')!==null && document.querySelector('.main-wrap')!==null && window.location.pathname=='/'){
-                let whiteContentHeight=document.querySelector('.content-item--white').clientHeight;
-                let mainWrap=document.querySelector('.main-wrap');
-                mainWrap.setAttribute('grad-height',whiteContentHeight+'px');
-                window.addEventListener('resize',(event)=>{
-                    let whiteContentHeight=document.querySelector('.content-item--white').clientHeight;
-                    console.log(whiteContentHeight+'px');
-                    mainWrap.setAttribute('grad-height',whiteContentHeight+'px');
-                },once=false);
+            if(document.querySelector('#tips')!==null && document.querySelector('#tipshover')!==null){
+                let tips=document.querySelector('#tips')
+                tips.addEventListener("mouseover",(event)=>{
+                    document.querySelector('#tipshover').style.display='block'
+                });
+                tips.addEventListener("mouseout",(event)=>{
+                    document.querySelector('#tipshover').style.display='none'
+                });
             };
         </script>
         <script src='select.js'></script>

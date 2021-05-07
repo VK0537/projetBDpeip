@@ -29,13 +29,15 @@
                     <p>bien joué bg t'as cliqué sur un boutton</p>
                 </div>
                 <div>
-                    <form>
-                        <label>
-
-                        </label>
-                    </form>
+                    <input id="reg-username" type="text" placeholder="pseudo" pattern="^((?![×Þß÷þðøÐ])[-'_0-9a-zA-ZÀ-ÿ]){0,50}$" name="reg-username" 
+                        required title="peut contenir des lettres, chiffres, apostrophe, tiret et underscore">
                 </div>
             </div>
         </div>
+        <script>
+            if(document.querySelector('#reg-username')!==null){
+                document.querySelector('#reg-username').focus();
+            };
+        </script>
     </body>
 </html>

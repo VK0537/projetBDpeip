@@ -39,7 +39,13 @@
                     <a class="nav-item nav-item--text" href="test.html" style="display: none;">CHAT</a>
                 </nav>
                 <nav class="nav nav--right">
-                    <a class ="nav-item nav-item--logo" href="register.php"><img src="favicons/userw.png" alt="Connexion"/></a>
+                    <div class="nav-item" id="usericon">
+                        <a class ="nav-item nav-item--logo" href="register.php"><img src="favicons/userw.png" alt="Inscription"/></a>
+                        <ul class="nav-item__hover" id="usericonhover">
+                            <li><a href="register.php">Inscription</a></li>
+                            <li><a href="login.php">Connexion</a></li>
+                        </ul>
+                    </div>
                     <form class="nav-item nav-item--searchbar" action="#" method="GET" name="searchbar">
                         <input type="text" id="searchbar" name="search" placeholder="Search"/>
                     </form>
@@ -113,13 +119,22 @@
             </footer>
         </div>
         <script>
-            if(document.getElementById('tips')!==null && document.getElementById('tipshover')!==null){
-                let tips=document.getElementById('tips')
+            if(document.querySelector('#usericon')!==null && document.querySelector('#usericonhover')!==null){
+                let usericon=document.querySelector('#usericon')
+                usericon.addEventListener("mouseover",(event)=>{
+                    document.querySelector('#usericonhover').style.display='block'
+                });
+                usericon.addEventListener("mouseout",(event)=>{
+                    document.querySelector('#usericonhover').style.display='none'
+                });
+            };
+            if(document.querySelector('#tips')!==null && document.querySelector('#tipshover')!==null){
+                let tips=document.querySelector('#tips')
                 tips.addEventListener("mouseover",(event)=>{
-                    document.getElementById('tipshover').style.display='block'
+                    document.querySelector('#tipshover').style.display='block'
                 });
                 tips.addEventListener("mouseout",(event)=>{
-                    document.getElementById('tipshover').style.display='none'
+                    document.querySelector('#tipshover').style.display='none'
                 });
             };
             if(document.querySelector('.content-item--white')!==null && document.querySelector('.main-wrap')!==null && (window.location.pathname=='/' || window.location.pathname=='/index.html')){

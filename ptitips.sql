@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1
--- Généré le : mer. 05 mai 2021 à 04:22
+-- Généré le : mer. 05 mai 2021 à 04:40
 -- Version du serveur :  10.4.17-MariaDB
 -- Version de PHP : 8.0.1
 
@@ -121,7 +121,7 @@ CREATE TABLE `tag` (
   `idTag` int(11) NOT NULL,
   `isCategory` tinyint(1) NOT NULL,
   `name` varchar(50) NOT NULL,
-  `alts` longtext NOT NULL
+  `alts` longtext DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -136,11 +136,11 @@ CREATE TABLE `utilisateur` (
   `prenom` varchar(50) NOT NULL,
   `pseudo` varchar(30) NOT NULL,
   `email` varchar(50) NOT NULL,
-  `isAdmin` tinyint(1) NOT NULL,
+  `isAdmin` tinyint(1) DEFAULT NULL,
   `age` date NOT NULL,
-  `idVille` varchar(120) NOT NULL,
-  `idDomaine` int(11) NOT NULL,
-  `idNewslet` int(11) NOT NULL
+  `idVille` varchar(120) DEFAULT NULL,
+  `idDomaine` int(11) DEFAULT NULL,
+  `idNewslet` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 -- --------------------------------------------------------
@@ -233,8 +233,34 @@ ALTER TABLE `ville`
   ADD PRIMARY KEY (`idVille`);
 
 --
--- Contraintes pour les tables déchargées
+-- AUTO_INCREMENT pour la table `article`
 --
+ALTER TABLE `article`
+  MODIFY `idArticle` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `groupe`
+--
+ALTER TABLE `groupe`
+  MODIFY `idGroupe` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `newsletteruser`
+--
+ALTER TABLE `newsletteruser`
+  MODIFY `idNewslet` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `tag`
+--
+ALTER TABLE `tag`
+  MODIFY `idTag` int(11) NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT pour la table `utilisateur`
+--
+ALTER TABLE `utilisateur`
+  MODIFY `idUser` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- Contraintes pour la table `appartenir`
