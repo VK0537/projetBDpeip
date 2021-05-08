@@ -337,6 +337,14 @@ input[type=submit]:hover{
     width: min-content;
     padding: .5em;
 }
+#register input[type=date]{
+    color: black;
+    font-style: normal;
+}
+#register input[type=date].placeholder{
+    color: #767676;
+    font-style: italic;
+}
 #connectinstead,#registerinstead{
     position: absolute;
     top: 5%;
@@ -398,7 +406,7 @@ input[type=submit]:hover{
 .select-hide{
     display: none;
 }
-.select-radius{
+.newselect.select-arrow-active{
     border-radius: .25em .25em 0 0 !important;
     border-color: var(--dark-blue) var(--dark-blue) transparent var(--dark-blue);
 }

@@ -9,98 +9,94 @@ if(isset($_POST['reg-submit'])){
     $_SESSION['reg-dob']=$_POST['reg-dob'];
     $_SESSION['reg-city']=$_POST['reg-city'];
     $_SESSION['reg-cityId']=$_POST['reg-cityId'];
-    $_SESSION['reg-domaine']=$_POST['reg-domaine'];
+    $_SESSION['reg-domaine']=(int)$_POST['reg-domaine'];
     $_SESSION['reg-password']=$_POST['reg-password'];
     header('Location:register.php');
     exit;
 };
 if(isset($_SESSION['reg-password'])){
     setlocale(LC_ALL, 'fr_FR');
+    var_dump($_SESSION['reg-domaine']);
+    echo ctype_digit($_SESSION['reg-domaine']);
     if(!empty($_SESSION['reg-username']) and !empty($_SESSION['reg-lname']) and !empty($_SESSION['reg-name']) and !empty($_SESSION['reg-email']) 
     and !empty($_SESSION['reg-password']) and !empty($_SESSION['reg-dob'])){
         if(preg_match('/^(.*(,\sFrance))$/',$_SESSION['reg-city'])){
             $_SESSION['reg-city']=substr($_SESSION['reg-city'],0,-8);
         };
-        $expldate=explode("-",$_SESSION['reg-dob']);
         if(!preg_match('/^((?![×Þß÷þðøÐ])[-\'_0-9a-zA-ZÀ-ÿ]){0,50}$/',$_SESSION['reg-username'])){
             echo '<script>alert("le nom d\'utilisateur renseigné est invalide");</script>';
         }elseif(!preg_match('/^((?![×Þß÷þðøÐ])[-\'\sa-zA-ZÀ-ÿ]){0,50}$/',$_SESSION['reg-lname'])){
             echo '<script>alert("le nom renseigné est invalide");</script>';
         }elseif(!preg_match('/^((?![×Þß÷þðøÐ])[-\'\sa-zA-ZÀ-ÿ]){0,50}$/',$_SESSION['reg-name'])){
             echo '<script>alert("le prénom renseigné est invalide");</script>';
-        }elseif(!checkdate($expldate[1],$expldate[2],$expldate[0])){
+        }elseif(!checkdate(explode("-",$_SESSION['reg-dob'])[1],explode("-",$_SESSION['reg-dob'])[2],explode("-",$_SESSION['reg-dob'])[0])){
             echo '<script>alert("la date de naissance renseignée est invalide");</script>';
         }elseif(!filter_var($_SESSION['reg-email'], FILTER_VALIDATE_EMAIL)){
             echo '<script>alert("l\'email renseigné est invalide");</script>';
-        }elseif(strlen($_SESSION['reg-password'])<8 or 
-                !preg_match('/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[_\W])([!-~]){8,}$/',$_SESSION['reg-password'])){
+        }elseif(strlen($_SESSION['reg-password'])<8 or !preg_match('/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[_\W])([!-~]){8,}$/',$_SESSION['reg-password'])){
             echo '<script>alert("Le mot de passe doit contenir 8 charactères dont : une lettre majuscule, une minuscule, un chiffre et un symbole");</script>';
         }elseif(!empty($_SESSION['reg-city']) and !preg_match('/^((?![×Þß÷þðøÐ])[-\'\sa-zA-ZÀ-ÿ]){0,50}$/',$_SESSION['reg-city'])){
             echo '<script>alert("la ville renseignée est invalide");</script>';
         }elseif(!empty($_SESSION['reg-cityId']) and !preg_match('/^([-\w])+$/',$_SESSION['reg-cityId'])){
             echo '<script>alert("valeur d\'Id de ville corrompue");</script>';
-        }elseif(!empty($_SESSION['reg-domaine']) and !ctype_digit($_SESSION['reg-domaine'])){
+        }elseif(!empty($_SESSION['reg-domaine']) and ($_SESSION['reg-domaine']>21 or $_SESSION['reg-domaine']<1)){
             echo '<script>alert("valeur de domaine corrompue");</script>';
         }else{
-            foreach($_SESSION as &$val){
-
-                $val=htmlspecialchars($val);
-            };
-            //------------------------------------
-            mysqli_report(MYSQLI_REPORT_ERROR | MYSQLI_REPORT_STRICT);
-            $mysqli=new mysqli("localhost","ptitipsadmin","dCvvcttP]LZ=BHh","ptitips");
-            if ($mysqli->connect_error) {
-                die("Connection failed: ".$mysqli->connect_error);
-            };
-            $mysqli->set_charset('utf8mb4');
-            $request=$mysqli->prepare("SELECT `idVille` FROM `ville` WHERE `nom`=?");
-            $request->bind_param("s",$_SESSION['reg-city']);
-            $request->execute();
-            $cityExists=$request->get_result();
-            $request->close();
-            var_dump($cityExists);
-            if($cityExists->num_rows()===0){
-                if(empty($_SESSION['reg-cityId'])){
-                    $_SESSION['reg-cityId']=$_SESSION['reg-city'];
-                };
-                $request=$mysqli->prepare("INSERT INTO `ville` (`idVille`,`nom`) VALUES (?,?)");
-                $request->bind_param("ss",$_SESSION['reg-cityId'],$_SESSION['reg-city']);
-                $request->execute();
-                $request->close();
+            $today=new DateTime();
+            $dob=new DateTime($_SESSION['reg-dob']);
+            if($today->diff($dob)->y<16){
+                echo '<script>alert("t\'es pas un peu jeune?");</script>';
             }else{
-                if(!empty($_SESSION['reg-cityId'])){
-                    $request=$mysqli->prepare("SELECT `idVille` FROM `ville` WHERE `nom`=? AND `idVille`=?");
-                    $request->bind_param("ss",$_SESSION['reg-city'],$_SESSION['reg-cityId']);
+                foreach($_SESSION as &$val){
+
+                    $val=htmlspecialchars($val);
+                };
+                //------------------------------------
+                $mysqli=new mysqli("localhost","ptitipsadmin","dCvvcttP]LZ=BHh","ptitips");
+                if ($mysqli->connect_error) {
+                    die("Connection failed: ".$mysqli->connect_error);
+                };
+                $mysqli->set_charset('utf8mb4');
+                $request=$mysqli->prepare("SELECT `idVille` FROM `ville` WHERE `nom`=?");
+                $request->bind_param("s",$_SESSION['reg-city']);
+                $request->execute();
+                $cityExists=$request->get_result();
+                $request->close();
+                var_dump($cityExists);
+                if($cityExists->num_rows()===0){
+                    if(empty($_SESSION['reg-cityId'])){
+                        $_SESSION['reg-cityId']=$_SESSION['reg-city'];
+                    };
+                    $request=$mysqli->prepare("INSERT INTO `ville` (`idVille`,`nom`) VALUES (?,?)");
+                    $request->bind_param("ss",$_SESSION['reg-cityId'],$_SESSION['reg-city']);
                     $request->execute();
-                    $nameAndIdMatch=$request->get_result();
                     $request->close();
-                    if($nameAndIdMatch->num_rows()===1){
-                        echo "yes";
-                    }else{
-                        echo $nameAndIdMatch->num_rows();
+                }else{
+                    if(!empty($_SESSION['reg-cityId'])){
+                        $request=$mysqli->prepare("SELECT `idVille` FROM `ville` WHERE `nom`=? AND `idVille`=?");
+                        $request->bind_param("ss",$_SESSION['reg-city'],$_SESSION['reg-cityId']);
+                        $request->execute();
+                        $nameAndIdMatch=$request->get_result();
+                        $request->close();
+                        if($nameAndIdMatch->num_rows()===1){
+                            echo "yes";
+                        }else{
+                            echo $nameAndIdMatch->num_rows();
+                        };
                     };
                 };
+                $request=$mysqli->prepare("INSERT INTO utilisateur (`nom`,`prenom`,`pseudo`,`email`,`password`,`dob`,`idVille`,`idDomaine`) VALUES (?,?,?,?,?,?,?)");
+                $request->bind_param("sssssss",$_SESSION['reg-lname'],$_SESSION['reg-name'],$_SESSION['reg-username'],$_SESSION['reg-email'],$_SESSION['reg-password'],$_SESSION['reg-dob'],$_SESSION['reg-cityId'],$_SESSION['reg-domaine']);
+                $request->execute();
+                $request->close();
+                $mysqli->close();
+                //-----------------------------------
             };
-            $request=$mysqli->prepare("INSERT INTO utilisateur (`nom`,`prenom`,`pseudo`,`email`,`password`,`dob`,`idVille`,`idDomaine`) VALUES (?,?,?,?,?,?,?)");
-            $request->bind_param("sssssss",
-            $_SESSION['reg-lname'],
-            $_SESSION['reg-name'],
-            $_SESSION['reg-username'],
-            $_SESSION['reg-email'],
-            $_SESSION['reg-password'],
-            $_SESSION['reg-dob'],
-            $_SESSION['reg-cityId'],
-            $_SESSION['reg-domaine'],
-            );
-            $request->execute();
-            $request->close();
-            $mysqli->close();
-            //-----------------------------------
         };
     }else{
         echo '<script>alert("L\'un des champs requis est vide");</script>';
     };
-    unset($expldate);
+    unset($dob);
     unset($_SESSION['reg-username']);
     unset($_SESSION['reg-lname']);
     unset($_SESSION['reg-name']);
@@ -207,7 +203,7 @@ if(isset($_SESSION['reg-password'])){
                     </div>
                     <div class="form-field" style="grid-column: span 3">
                         <label for="reg-dob">Date de Naissance : </label>
-                        <input id="reg-dob" type="date" placeholder="jj/mm/aaaa" name="reg-dob"min="1950-01-01" required >
+                        <input id="reg-dob" class="placeholder" type="date" placeholder="jj/mm/aaaa" name="reg-dob"min="1950-01-01" required >
                     </div>
                     <div class="form-field" style="grid-column: span 3">
                         <label for="reg-city">Ville : </label>
@@ -264,25 +260,6 @@ if(isset($_SESSION['reg-password'])){
             </footer>
         </div>
         <script>
-            if(document.querySelector('#reg-submit')!==null){
-                let inputs=document.querySelectorAll('#register input');
-                for(let i=0;i<inputs.length;i++){
-                    inputs[i].addEventListener('keydown',(event)=>{
-                        if(event.keyCode==13){
-                            event.preventDefault();
-                            return false;
-                        };
-                    });
-                }
-            };
-            if(document.querySelector('#reg-username')!==null){
-                document.querySelector('#reg-username').focus();
-            };
-            if(document.querySelector('#reg-dob')!==null){
-                let today=new Date().toJSON().slice(0,10);
-                document.querySelector('#reg-dob').setAttribute('max',today);
-                document.querySelector('#reg-dob').setAttribute('value',today);
-            };
             if(document.querySelector('#usericon')!==null && document.querySelector('#usericonhover')!==null){
                 let usericon=document.querySelector('#usericon')
                 usericon.addEventListener("mouseover",(event)=>{
@@ -300,6 +277,28 @@ if(isset($_SESSION['reg-password'])){
                 tips.addEventListener("mouseout",(event)=>{
                     document.querySelector('#tipshover').style.display='none'
                 });
+            };
+            if(document.querySelector('#reg-username')!==null){
+                document.querySelector('#reg-username').focus();
+            };
+            if(document.querySelector('#reg-dob')!==null){
+                let today=new Date().toJSON().slice(0,10);
+                let dob=document.querySelector('#reg-dob');
+                dob.setAttribute('max',today);
+                dob.setAttribute('value',today);
+                dob.addEventListener('change',(event)=>{
+                    console.log('change');
+                    dob.classList.remove('placeholder');
+                })
+            };
+            if(document.querySelector('#reg-submit')!==null){
+                let inputs=document.querySelectorAll('#register input');
+                for(let i=0;i<inputs.length;i++){
+                    inputs[i].addEventListener('keydown',(event)=>{
+                        if(event.keyCode==13){
+                            event.preventDefault();
+                            return false;
+                }})}
             };
         </script>
         <script src='select.js'></script>
