@@ -3,8 +3,9 @@ $idValid=false;
 $idArticle=$_GET["article"];
 if(ctype_digit($idArticle) and strlen($idArticle)===8){
     $idValid=true;
-    $apikeys=file_get_contents(__DIR__."/apikeys.json",true);
-    $dbAcess=json_decode($apikeys)["databaseAcess"];
+    $keys=file_get_contents("./keys.json",true);
+    $dbAcess=json_decode($keys);
+    $dbAcess=$dbAcess["databaseAcess"];
     $mysqli=new mysqli("localhost",$dbAcess["username"],$dbAcess["password"],"ptitips");
     if ($mysqli->connect_error) {
         die("Connection failed: ".$mysqli->connect_error);

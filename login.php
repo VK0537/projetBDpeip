@@ -20,8 +20,8 @@ if(isset($_SESSION['log-password'])){
                 $val=htmlspecialchars($val);
             };
             //------------------------------------
-            $apikeys=file_get_contents("./apikeys.json",false);
-            $dbAcess=json_decode($apikeys)["databaseAcess"];
+            $keys=file_get_contents("./keys.json",false);
+            $dbAcess=json_decode($keys)["databaseAcess"];
             $mysqli=new mysqli("localhost",$dbAcess["username"],$dbAcess["password"],"ptitips");
             if ($mysqli->connect_error) {
                 die("Connection failed: ".$mysqli->connect_error);

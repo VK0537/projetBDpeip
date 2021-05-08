@@ -50,8 +50,8 @@ if(isset($_SESSION['reg-password'])){
                     $val=htmlspecialchars($val);
                 };
                 //------------------------------------
-                $apikeys=file_get_contents("./apikeys.json",true);
-                $dbAcess=json_decode($apikeys,true)["databaseAcess"];
+                $keys=file_get_contents("./keys.json",true);
+                $dbAcess=json_decode($keys,true)["databaseAcess"];
                 $mysqli=new mysqli("localhost",$dbAcess["username"],$dbAcess["password"],"ptitips");
                 if ($mysqli->connect_error) {
                     die("Connection failed: ".$mysqli->connect_error);
@@ -302,7 +302,7 @@ if(isset($_SESSION['reg-password'])){
         </script>
         <script src='select.js'></script>
         <script>
-            fetch("apikeys.json")
+            fetch("keys.json")
             .then(response=>response.json())
             .then(data=>{
                 let url=data.apikeys[0].url;
