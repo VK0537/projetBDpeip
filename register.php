@@ -302,6 +302,6 @@ if(isset($_SESSION['reg-password'])){
             };
         </script>
         <script src='select.js'></script>
-        <script async src="https://maps.googleapis.com/maps/api/js?key=AIzaSyABDKaQdkzI2l_KLIvKN9jDCFYf-s_dxS4&libraries=places&callback=initMap"></script>
+        <script async src="https://maps.googleapis.com/maps/api/js?key=[key]&libraries=places&callback=initMap"></script>
     </body>
 </html>
