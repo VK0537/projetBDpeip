@@ -15,7 +15,7 @@
         <div class="main-wrap gradient">
             <header>
                 <nav class="nav nav--left">
-                    <a class="nav-item nav-item--logo" href="index.html">
+                    <a class="nav-item nav-item--logo" href="/">
                         <img class="logo" src="favicons/logo.png" height=70 alt="Ptitips"/>
                     </a>
                     <a class="nav-item nav-item--text" href="test.html">NEWS</a>
@@ -125,7 +125,7 @@
         </div>
         <script src="common.js"></script>
         <script>
-            // if(document.querySelector('.content-item--white')!==null && document.querySelector('.main-wrap')!==null && (window.location.pathname=='/' || window.location.pathname=='/index.html')){
+            // if(document.querySelector('.content-item--white')!==null && document.querySelector('.main-wrap')!==null && (window.location.pathname=='/' || window.location.pathname=='/index.php')){
             //     let whiteContentHeight=document.querySelector('.content-item--white').clientHeight;
             //     let mainWrap=document.querySelector('.main-wrap');
             //     mainWrap.setAttribute('grad-height',whiteContentHeight+'px');
