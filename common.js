@@ -16,3 +16,10 @@ if(document.querySelector('#tips')!==null && document.querySelector('#tipshover'
         document.querySelector('#tipshover').style.display='none'
     });
 };
+// function nlAlert(email){
+//     if(email){
+//         alert('A verification email have been sent to'+email);
+//     }else{
+//         alert('Invalid email, please retry...');
+//     };
+// }
