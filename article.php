@@ -1,3 +1,33 @@
+<?php 
+$idValid=false;
+$idArticle=$_GET["article"];
+if(ctype_digit($idArticle) and strlen($idArticle)===8){
+    $idValid=true;
+    $apikeys=file_get_contents(__DIR__."/apikeys.json",true);
+    $dbAcess=json_decode($apikeys)["databaseAcess"];
+    $mysqli=new mysqli("localhost",$dbAcess["username"],$dbAcess["password"],"ptitips");
+    if ($mysqli->connect_error) {
+        die("Connection failed: ".$mysqli->connect_error);
+    };
+    $mysqli->set_charset('utf8mb4');
+    $request=$mysqli->prepare("SELECT * FROM `article` WHERE `idArticle`=?");
+    $request->bind_param("i",$idArticle);
+    $request->execute();
+    $match=$request->get_result();
+    $request->close();
+    if($match and $match->num_rows===1){
+        $match=$match->fetch_assoc();
+        $idValid=true;
+        var_dump($match);
+        // $titre=
+        // `, `date`, `type`, `attributs`, `contenu`, `medias`
+    }else{
+        echo '<script>alert("database error");</script>';
+    };
+}else{
+    echo '<script>alert("l\'id d\'article est invalide");</script>';
+};
+?>
 <!DOCTYPE html>
 <html lang='fr'>
     <head>
@@ -9,8 +39,9 @@
         <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
     </head>
     <body>
-        <div class="main-wrap gradient">
+        <div class="main-wrap">
             <header>
+                <!-- #include file="include_head.html" -->
                 <nav class="nav nav--left">
                     <a class="nav-item nav-item--logo" href="index.html">
                         <img class="logo" src="favicons/logo.png" height=70 alt="Ptitips"/>
@@ -42,55 +73,9 @@
                 </nav>
             </header>
             <main>
-                <div class="content-item content-item--white">
-                    <h1>Besoin d'un p'tit tips?</h1>
-                    <p>Bienvenue sur la plateforme dédiée à vous aider dans les débuts de votre vie autonome&#8239;!<br/>
-                    Que vous sortiez fraîchement de Parcoursup, ou que vous rentriez dans votre vie de jeune actif 
-                    (&nbsp;félicitations pour votre job ;)&nbsp;), nous sommes les experts des bons plans et astuces 
-                    pour vous sauver dans votre autonomie et surtout pour vous accompagner tout au long de votre 
-                    cursus. Ici, vous pourrez échanger autant que vous le souhaitez avec des personnes dans la 
-                    même situation que vous, pour discuter et s'entraider.</p>
-                </div>
-                <div class="content-item">
-                    <button class="button--big" onclick="window.location.href='test.html';">C'est Parti !</button>
-                </div>
-                <div class="content-item">
-                    <p>&Agrave; votre inscription, vous avez la posibilité de renseigner votre lieu d'étude afin 
-                    de pouvoir être mis en relation avec des gens de votre université ou école. Vous pourrez 
-                    ainsi faire plus ample connaissance avec vos futurs amis en vrai&#8239;! Ce qui peut vous 
-                    permettre aussi de trouver des colocs ou, en temps de Covid, de se sentir un peu moins seul...<br/>
-                    Vous trouverez sur notre site plusieures rubriques, qui vous redirigeront notamment vers 
-                    des recettes, des tutos de bricolage, une page d'aide à l'administratif, et une page qui 
-                    concerne la gestion de vos tâches quotidiennes : budget, liste de courses, etc...</p>
-                </div>
-                <div class="content-item card-wrap">
-                    <a href="test.html"><div class="card">
-                        <div class="card__img"><img src="images/8a9.jpg" alt="harold"/></div>
-                        <div class="card__text"><h1>10 astuces joie et bonne humeur</h1><p>Comment être heureux et éviter le suicide</p></div>
-                    </div></a>
-                    <a href="test.html"><div class="card">
-                        <div class=card__img><img src="images/20501.jpg" alt="healthy dish image"/></div>
-                        <div class="card__text"><h1>5 astuces pâté</h1><p>Existe aussi pour les végans !</p></div>
-                    </div></a>
-                    <a href="test.html"><div class="card">
-                        <div class=card__img><img src="images/SDFGH.jpg" alt="clebs"/></div>
-                        <div class="card__text"><p>Plus de 990255734 astuces sur les teckels</p></div>
-                    </div></a>
-                    <a href="test.html"><div class="card">
-                        <div class=card__img><img src="images/IMG_0935.JPG" alt="vendre"/></div>
-                        <div class="card__text"><p>Vendre ses talents en situation de retrutement</p></div>
-                    </div></a>
-                    <a href="test.html"><div class="card">
-                        <div class=card__img><img src="images/IMG_1281.JPG" alt="exam"/></div>
-                        <div class="card__text"><p>Réussir ses révisions</p></div>
-                    </div></a>
-                    <a href="test.html"><div class="card">  
-                        <div class=card__img><img src="images/IMG_0838.jpg" alt="clodo"/></div>
-                        <div class="card__text"><h1>Gérer ses finances</h1><p>Ou comment ne pas finir à la rue</p></div>
-                    </div></a>
-                </div>
-                <div class="content-item">
-                </div>
+                <?php 
+                var_dump($match);
+                ?>
             </main>
             <footer>
                 <form id="newsletter" action="newsletter.php" method="POST" target="_self">
@@ -108,7 +93,7 @@
                 </nav>
             </footer>
         </div>
-        <script src="/common.js"></script>
+        <script src="common.js"></script>
         <script>
             // if(document.querySelector('.content-item--white')!==null && document.querySelector('.main-wrap')!==null && (window.location.pathname=='/' || window.location.pathname=='/index.html')){
             //     let whiteContentHeight=document.querySelector('.content-item--white').clientHeight;

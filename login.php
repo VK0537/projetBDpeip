@@ -20,7 +20,7 @@ if(isset($_SESSION['log-password'])){
                 $val=htmlspecialchars($val);
             };
             //------------------------------------
-            $apikeys=file_get_contents("/apikeys.json",false);
+            $apikeys=file_get_contents("./apikeys.json",false);
             $dbAcess=json_decode($apikeys)["databaseAcess"];
             $mysqli=new mysqli("localhost",$dbAcess["username"],$dbAcess["password"],"ptitips");
             if ($mysqli->connect_error) {
@@ -123,7 +123,7 @@ if(isset($_SESSION['log-password'])){
                 </nav>
             </footer>
         </div>
-        <script src="/common.js"></script>
+        <script src="common.js"></script>
         <script>
         </script>
     </body>

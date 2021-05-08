@@ -1,3 +1,6 @@
+<?php
+
+?>
 <!DOCTYPE html>
 <html lang='fr'>
     <head>
@@ -9,9 +12,8 @@
         <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
     </head>
     <body>
-        <div class="main-wrap">
+        <div class="main-wrap gradient">
             <header>
-                <!-- #include file="include_head.html" -->
                 <nav class="nav nav--left">
                     <a class="nav-item nav-item--logo" href="index.html">
                         <img class="logo" src="favicons/logo.png" height=70 alt="Ptitips"/>
@@ -65,30 +67,42 @@
                     concerne la gestion de vos tâches quotidiennes : budget, liste de courses, etc...</p>
                 </div>
                 <div class="content-item card-wrap">
-                    <a href="test.html"><div class="card">
-                        <div class="card__img"><img src="images/8a9.jpg" alt="harold"/></div>
-                        <div class="card__text"><h1>10 astuces joie et bonne humeur</h1><p>Comment être heureux et éviter le suicide</p></div>
-                    </div></a>
-                    <a href="test.html"><div class="card">
-                        <div class=card__img><img src="images/20501.jpg" alt="healthy dish image"/></div>
-                        <div class="card__text"><h1>5 astuces pâté</h1><p>Existe aussi pour les végans !</p></div>
-                    </div></a>
-                    <a href="test.html"><div class="card">
-                        <div class=card__img><img src="images/SDFGH.jpg" alt="clebs"/></div>
-                        <div class="card__text"><p>Plus de 990255734 astuces sur les teckels</p></div>
-                    </div></a>
-                    <a href="test.html"><div class="card">
-                        <div class=card__img><img src="images/IMG_0935.JPG" alt="vendre"/></div>
-                        <div class="card__text"><p>Vendre ses talents en situation de retrutement</p></div>
-                    </div></a>
-                    <a href="test.html"><div class="card">
-                        <div class=card__img><img src="images/IMG_1281.JPG" alt="exam"/></div>
-                        <div class="card__text"><p>Réussir ses révisions</p></div>
-                    </div></a>
-                    <a href="test.html"><div class="card">  
-                        <div class=card__img><img src="images/IMG_0838.jpg" alt="clodo"/></div>
-                        <div class="card__text"><h1>Gérer ses finances</h1><p>Ou comment ne pas finir à la rue</p></div>
-                    </div></a>
+                    <a href="article.php?article=48077208" class="card">
+                        <div>
+                            <div class="card__img"><img src="images/8a9.jpg" alt="harold"/></div>
+                            <div class="card__text"><h1>10 astuces joie et bonne humeur</h1><p>Comment être heureux et éviter le suicide</p></div>
+                        </div>
+                    </a>
+                    <a href="article.php?article=21162139" class="card">
+                        <div>
+                            <div class=card__img><img src="images/EfjF3oRn.jpg" alt="healthy dish image"/></div>
+                            <div class="card__text"><h1>5 astuces pâté</h1><p>Existe aussi pour les végans !</p></div>
+                        </div>
+                    </a>
+                    <a href="article.php?article=59972036" class="card">
+                        <div>
+                            <div class=card__img><img src="images/SDFGH.jpg" alt="clebs"/></div>
+                            <div class="card__text"><p>Plus de 990255734 astuces sur les teckels</p></div>
+                        </div>
+                    </a>
+                    <a href="article.php?article=62417654" class="card">
+                        <div>
+                            <div class=card__img><img src="images/IMG_0935.JPG" alt="vendre"/></div>
+                            <div class="card__text"><p>Vendre ses talents en situation de retrutement</p></div>
+                        </div>
+                    </a>
+                    <a href="article.php?article=40227636" class="card">
+                        <div>
+                            <div class=card__img><img src="images/IMG_1281.JPG" alt="exam"/></div>
+                            <div class="card__text"><p>Réussir ses révisions</p></div>
+                        </div>
+                    </a>
+                    <a href="article.php?article=64845667" class="card">
+                        <div>  
+                            <div class=card__img><img src="images/IMG_0838.jpg" alt="clodo"/></div>
+                            <div class="card__text"><h1>Gérer ses finances</h1><p>Ou comment ne pas finir à la rue</p></div>
+                        </div>
+                    </a>
                 </div>
                 <div class="content-item">
                 </div>
@@ -109,7 +123,7 @@
                 </nav>
             </footer>
         </div>
-        <script src="/common.js"></script>
+        <script src="common.js"></script>
         <script>
             // if(document.querySelector('.content-item--white')!==null && document.querySelector('.main-wrap')!==null && (window.location.pathname=='/' || window.location.pathname=='/index.html')){
             //     let whiteContentHeight=document.querySelector('.content-item--white').clientHeight;

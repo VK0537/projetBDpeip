@@ -275,7 +275,7 @@ if(isset($_SESSION['reg-password'])){
                 </nav>
             </footer>
         </div>
-        <script src="/common.js"></script>
+        <script src="common.js"></script>
         <script>
             if(document.querySelector('#reg-username')!==null){
                 document.querySelector('#reg-username').focus();
