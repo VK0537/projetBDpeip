@@ -16,8 +16,6 @@ if(isset($_POST['reg-submit'])){
 };
 if(isset($_SESSION['reg-password'])){
     setlocale(LC_ALL, 'fr_FR');
-    var_dump($_SESSION['reg-domaine']);
-    echo ctype_digit($_SESSION['reg-domaine']);
     if(!empty($_SESSION['reg-username']) and !empty($_SESSION['reg-lname']) and !empty($_SESSION['reg-name']) and !empty($_SESSION['reg-email']) 
     and !empty($_SESSION['reg-password']) and !empty($_SESSION['reg-dob'])){
         if(preg_match('/^(.*(,\sFrance))$/',$_SESSION['reg-city'])){
@@ -52,44 +50,61 @@ if(isset($_SESSION['reg-password'])){
                     $val=htmlspecialchars($val);
                 };
                 //------------------------------------
-                $mysqli=new mysqli("localhost","ptitipsadmin","dCvvcttP]LZ=BHh","ptitips");
+                $apikeys=file_get_contents("./apikeys.json",true);
+                $dbAcess=json_decode($apikeys,true)["databaseAcess"];
+                $mysqli=new mysqli("localhost",$dbAcess["username"],$dbAcess["password"],"ptitips");
                 if ($mysqli->connect_error) {
                     die("Connection failed: ".$mysqli->connect_error);
                 };
                 $mysqli->set_charset('utf8mb4');
-                $request=$mysqli->prepare("SELECT `idVille` FROM `ville` WHERE `nom`=?");
-                $request->bind_param("s",$_SESSION['reg-city']);
+                $request=$mysqli->prepare("SELECT `email` FROM `utilisateur` WHERE `email`=?");
+                $request->bind_param("s",$_SESSION['reg-email']);
                 $request->execute();
-                $cityExists=$request->get_result();
+                $userExists=$request->get_result();
                 $request->close();
-                var_dump($cityExists);
-                if($cityExists->num_rows()===0){
-                    if(empty($_SESSION['reg-cityId'])){
-                        $_SESSION['reg-cityId']=$_SESSION['reg-city'];
-                    };
-                    $request=$mysqli->prepare("INSERT INTO `ville` (`idVille`,`nom`) VALUES (?,?)");
-                    $request->bind_param("ss",$_SESSION['reg-cityId'],$_SESSION['reg-city']);
+                if($userExists->num_rows===0){
+                    $request=$mysqli->prepare("SELECT `idVille` FROM `ville` WHERE `nom`=?");
+                    $request->bind_param("s",$_SESSION['reg-city']);
                     $request->execute();
+                    $cityExists=$request->get_result();
                     $request->close();
-                }else{
-                    if(!empty($_SESSION['reg-cityId'])){
-                        $request=$mysqli->prepare("SELECT `idVille` FROM `ville` WHERE `nom`=? AND `idVille`=?");
-                        $request->bind_param("ss",$_SESSION['reg-city'],$_SESSION['reg-cityId']);
+                    if($cityExists->num_rows===0){
+                        if(empty($_SESSION['reg-cityId'])){
+                            $_SESSION['reg-cityId']=$_SESSION['reg-city'];
+                        };
+                        $request=$mysqli->prepare("INSERT INTO `ville` (`idVille`,`nom`) VALUES (?,?)");
+                        if($request==false){}
+                        $request->bind_param("ss",$_SESSION['reg-cityId'],$_SESSION['reg-city']);
                         $request->execute();
-                        $nameAndIdMatch=$request->get_result();
                         $request->close();
-                        if($nameAndIdMatch->num_rows()===1){
-                            echo "yes";
+                    }else{
+                        if(empty($_SESSION['reg-cityId'])){
+                            while ($row = $cityExists->fetch_assoc()) {
+                                $idVille=$row["idVille"];
+                            }
+                            $_SESSION['reg-cityId']=$idVille;
                         }else{
-                            echo $nameAndIdMatch->num_rows();
+                            $request=$mysqli->prepare("SELECT `idVille` FROM `ville` WHERE `nom`=? AND `idVille`=?");
+                            $request->bind_param("ss",$_SESSION['reg-city'],$_SESSION['reg-cityId']);
+                            $request->execute();
+                            $nameAndIdMatch=$request->get_result();
+                            $request->close();
+                            if($nameAndIdMatch->num_rows!==1){
+                                while ($row = $nameAndIdMatch->fetch_assoc()) {
+                                    $idVille=$row["idVille"];
+                                }
+                                $_SESSION['reg-cityId']=$idVille;
+                            };
                         };
                     };
+                    $request=$mysqli->prepare("INSERT INTO utilisateur (`nom`,`prenom`,`pseudo`,`email`,`password`,`dob`,`idVille`,`idDomaine`) VALUES (?,?,?,?,?,?,?,?)");
+                    $request->bind_param("sssssssi",$_SESSION['reg-lname'],$_SESSION['reg-name'],$_SESSION['reg-username'],$_SESSION['reg-email'],$_SESSION['reg-password'],$_SESSION['reg-dob'],$_SESSION['reg-cityId'],$_SESSION['reg-domaine']);
+                    $request->execute();
+                    $request->close();
+                    $mysqli->close();
+                }else{
+                    echo '<script>alert("l\'utilisateur existe déjà");</script>';
                 };
-                $request=$mysqli->prepare("INSERT INTO utilisateur (`nom`,`prenom`,`pseudo`,`email`,`password`,`dob`,`idVille`,`idDomaine`) VALUES (?,?,?,?,?,?,?)");
-                $request->bind_param("sssssss",$_SESSION['reg-lname'],$_SESSION['reg-name'],$_SESSION['reg-username'],$_SESSION['reg-email'],$_SESSION['reg-password'],$_SESSION['reg-dob'],$_SESSION['reg-cityId'],$_SESSION['reg-domaine']);
-                $request->execute();
-                $request->close();
-                $mysqli->close();
                 //-----------------------------------
             };
         };
@@ -97,6 +112,7 @@ if(isset($_SESSION['reg-password'])){
         echo '<script>alert("L\'un des champs requis est vide");</script>';
     };
     unset($dob);
+    unset($idVille);
     unset($_SESSION['reg-username']);
     unset($_SESSION['reg-lname']);
     unset($_SESSION['reg-name']);
@@ -106,7 +122,7 @@ if(isset($_SESSION['reg-password'])){
     unset($_SESSION['reg-city']);
     unset($_SESSION['reg-cityId']);
     unset($_SESSION['reg-domaine']);
-}
+};
 ?>
 <!DOCTYPE html>
 <html lang='fr'>
@@ -143,7 +159,7 @@ if(isset($_SESSION['reg-password'])){
     </head>
     <body>
         <div class="main-wrap">
-            <header class="header">
+            <header>
                 <!-- #include file="include_head.html" -->
                 <nav class="nav nav--left">
                     <a class="nav-item nav-item--logo" href="index.html">
@@ -259,25 +275,8 @@ if(isset($_SESSION['reg-password'])){
                 </nav>
             </footer>
         </div>
+        <script src="/common.js"></script>
         <script>
-            if(document.querySelector('#usericon')!==null && document.querySelector('#usericonhover')!==null){
-                let usericon=document.querySelector('#usericon')
-                usericon.addEventListener("mouseover",(event)=>{
-                    document.querySelector('#usericonhover').style.display='block'
-                });
-                usericon.addEventListener("mouseout",(event)=>{
-                    document.querySelector('#usericonhover').style.display='none'
-                });
-            };
-            if(document.querySelector('#tips')!==null && document.querySelector('#tipshover')!==null){
-                let tips=document.querySelector('#tips')
-                tips.addEventListener("mouseover",(event)=>{
-                    document.querySelector('#tipshover').style.display='block'
-                });
-                tips.addEventListener("mouseout",(event)=>{
-                    document.querySelector('#tipshover').style.display='none'
-                });
-            };
             if(document.querySelector('#reg-username')!==null){
                 document.querySelector('#reg-username').focus();
             };
@@ -302,6 +301,16 @@ if(isset($_SESSION['reg-password'])){
             };
         </script>
         <script src='select.js'></script>
-        <script async src="https://maps.googleapis.com/maps/api/js?key=[key]&libraries=places&callback=initMap"></script>
+        <script>
+            fetch("apikeys.json")
+            .then(response=>response.json())
+            .then(data=>{
+                let url=data.apikeys[0].url;
+                let mapsScript=document.createElement('script');
+                mapsScript.setAttribute('async',"");
+                mapsScript.setAttribute('src',url);
+                document.body.appendChild(mapsScript);
+            });
+        </script>
     </body>
 </html>

@@ -73,7 +73,7 @@ input::placeholder{
     position: relative;
     z-index: 1;
 }
-.index-main-wrap::before{
+.gradient::before{
     content: "";
     display: block;
     position: absolute;
@@ -317,8 +317,8 @@ input[type=submit]:hover{
 }
 .form-field input{
     margin: 0;
+    width: 100px;
     flex-grow: 5;
-    width: 50px;
 }
 #register>h2,#login>h2{
     grid-column: span 6;
