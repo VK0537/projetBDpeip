@@ -286,7 +286,6 @@ if(isset($_SESSION['reg-password'])){
                 dob.setAttribute('max',today);
                 dob.setAttribute('value',today);
                 dob.addEventListener('change',(event)=>{
-                    console.log('change');
                     dob.classList.remove('placeholder');
                 })
             };

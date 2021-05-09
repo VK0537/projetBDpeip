@@ -33,14 +33,13 @@ h1{
     font-size: 2.5em;
     color: inherit;
     font-weight: bold;
-    padding-bottom: 0.5em;
+    padding-bottom: .1em;
 }
 h2{
-    font-size: 2em;
+    font-size: 1.75em;
     color: inherit;
-    padding-left: 1em;
     font-weight: bold;
-    padding-bottom: 0.25em;
+    padding-bottom: .3em;
 }
 p{
     font-size: inherit;
@@ -190,6 +189,12 @@ main{
 .content-item>p{
     text-indent: 2em;
 }
+.content-item ul{
+    padding-left: 1.5em;
+}
+.content-item li{
+    padding-left: .5em;
+}
 .content-item--white{
     color: white;
 }
@@ -204,6 +209,30 @@ main{
 }
 .button--big:hover{
     color: var(--yellow);
+}
+.subtitle{
+    font-size: 1.5rem;
+    display: flex;
+    flex-flow: row;
+    align-items: inherit;
+    justify-content: space-between;
+}
+.subtitle *{
+    margin-left: 1em;
+}
+.subtitle>p{
+    color: #555;
+    font-style: italic;
+}
+.subtitle>div{
+    display: flex;
+    flex-flow: row nowrap;
+}
+.subtitle .tag{
+    background-color: var(--yellow);
+    color: white;
+    padding: .25em .75em;
+    border-radius: .5rem;
 }
 .card-wrap{
     display: grid;
@@ -259,6 +288,8 @@ footer{
     text-align: left;
 }
 #newsletter h2{
+    font-size: 2em;
+    padding-left: 1em;
     color: var(--light-grey);
 }
 #newsletter p{
@@ -309,6 +340,7 @@ input[type=submit]:hover{
     box-shadow: 5px 5px 5px #888;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+    justify-content: space-evenly;
     gap: 30px;
     align-items: baseline;
 }

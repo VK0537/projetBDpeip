@@ -4,8 +4,7 @@ $idArticle=$_GET["article"];
 if(ctype_digit($idArticle) and strlen($idArticle)===8){
     $idValid=true;
     $keys=file_get_contents("./keys.json",true);
-    $dbAcess=json_decode($keys);
-    $dbAcess=$dbAcess["databaseAcess"];
+    $dbAcess=json_decode($keys,true)["databaseAcess"];
     $mysqli=new mysqli("localhost",$dbAcess["username"],$dbAcess["password"],"ptitips");
     if ($mysqli->connect_error) {
         die("Connection failed: ".$mysqli->connect_error);
@@ -16,12 +15,18 @@ if(ctype_digit($idArticle) and strlen($idArticle)===8){
     $request->execute();
     $match=$request->get_result();
     $request->close();
-    if($match and $match->num_rows===1){
+    if($match->num_rows===1){
         $match=$match->fetch_assoc();
         $idValid=true;
-        var_dump($match);
-        // $titre=
-        // `, `date`, `type`, `attributs`, `contenu`, `medias`
+        $titre=$match["titre"];
+        $date=new DateTime($match["date"]);
+        $auteur=$match["auteur"];
+        $type=$match["type"];
+        $attributs=$match["attributs"];
+        $contenu=$match["contenu"];
+        $medias=$match["medias"];
+    }elseif($match->num_rows===0){
+        echo '<script>alert("this article doesn\'t exists");</script>';
     }else{
         echo '<script>alert("database error");</script>';
     };
@@ -75,7 +80,13 @@ if(ctype_digit($idArticle) and strlen($idArticle)===8){
             </header>
             <main>
                 <?php 
-                var_dump($match);
+                if($idValid){
+                    echo "<div class=\"content-item\">";
+                    echo "<h1>{$titre}</h1>";
+                    echo "<div class=\"subtitle\"><p>écrit le {$date->format('d/m/Y')} par  {$auteur}</p><div><button class=\"tag\">recette</button><button class=\"tag\">tag2</button></div></div>";
+                    echo "</div>";
+                    echo $contenu;
+                }
                 ?>
             </main>
             <footer>

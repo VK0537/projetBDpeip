@@ -21,7 +21,7 @@ if(isset($_SESSION['log-password'])){
             };
             //------------------------------------
             $keys=file_get_contents("./keys.json",false);
-            $dbAcess=json_decode($keys)["databaseAcess"];
+            $dbAcess=json_decode($keys,true)["databaseAcess"];
             $mysqli=new mysqli("localhost",$dbAcess["username"],$dbAcess["password"],"ptitips");
             if ($mysqli->connect_error) {
                 die("Connection failed: ".$mysqli->connect_error);
@@ -123,6 +123,11 @@ if(isset($_SESSION['log-password'])){
                 </nav>
             </footer>
         </div>
+        <script>
+        if(document.querySelector('#log-email')!==null){
+            document.querySelector('#log-email').focus();
+        };
+        </script>
         <script src="common.js"></script>
         <script>
         </script>

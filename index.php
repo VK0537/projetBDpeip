@@ -47,6 +47,8 @@
             <main>
                 <div class="content-item content-item--white">
                     <h1>Besoin d'un p'tit tips?</h1>
+                </div>
+                <div class="content-item content-item--white">
                     <p>Bienvenue sur la plateforme dédiée à vous aider dans les débuts de votre vie autonome&#8239;!<br/>
                     Que vous sortiez fraîchement de Parcoursup, ou que vous rentriez dans votre vie de jeune actif 
                     (&nbsp;félicitations pour votre job ;)&nbsp;), nous sommes les experts des bons plans et astuces 
