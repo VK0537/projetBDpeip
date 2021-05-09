@@ -69,7 +69,7 @@ if(isset($_SESSION['log-password'])){
                     <a class="nav-item nav-item--text" href="test.html">NEWS</a>
                     <div class="nav-item" id="tips">
                         <a class="nav-item nav-item--text" href="test.html">TIPS</a>
-                        <ul class="nav-item__hover" id="tipshover">
+                        <ul class="nav-item__dropdown" id="tipshover">
                             <li><a href="test.html">Cuisine</a></li>
                             <li><a href="test.html">Bricolage</a></li>
                             <li><a href="test.html">Administration</a></li>
@@ -82,7 +82,7 @@ if(isset($_SESSION['log-password'])){
                 <nav class="nav nav--right">
                     <div class="nav-item" id="usericon">
                         <a class ="nav-item nav-item--logo" href="register.php"><img src="favicons/userw.png" alt="Inscription"/></a>
-                        <ul class="nav-item__hover" id="usericonhover">
+                        <ul class="nav-item__dropdown" id="usericonhover">
                             <li><a href="register.php">Inscription</a></li>
                             <li><a href="login.php">Connexion</a></li>
                         </ul>

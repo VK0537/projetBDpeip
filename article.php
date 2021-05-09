@@ -22,9 +22,9 @@ if(ctype_digit($idArticle) and strlen($idArticle)===8){
         $date=new DateTime($match["date"]);
         $auteur=$match["auteur"];
         $type=$match["type"];
-        $attributs=$match["attributs"];
-        $contenu=$match["contenu"];
-        $medias=$match["medias"];
+        $attributs=json_decode($match["attributs"]);
+        $contenu=json_decode($match["contenu"]);
+        $medias=json_decode($match["medias"]);
     }elseif($match->num_rows===0){
         echo '<script>alert("this article doesn\'t exists");</script>';
     }else{
@@ -55,7 +55,7 @@ if(ctype_digit($idArticle) and strlen($idArticle)===8){
                     <a class="nav-item nav-item--text" href="test.html">NEWS</a>
                     <div class="nav-item" id="tips">
                         <a class="nav-item nav-item--text" href="test.html">TIPS</a>
-                        <ul class="nav-item__hover" id="tipshover">
+                        <ul class="nav-item__dropdown" id="tipshover">
                             <li><a href="test.html">Cuisine</a></li>
                             <li><a href="test.html">Bricolage</a></li>
                             <li><a href="test.html">Administration</a></li>
@@ -68,7 +68,7 @@ if(ctype_digit($idArticle) and strlen($idArticle)===8){
                 <nav class="nav nav--right">
                     <div class="nav-item" id="usericon">
                         <a class ="nav-item nav-item--logo" href="register.php"><img src="favicons/userw.png" alt="Inscription"/></a>
-                        <ul class="nav-item__hover" id="usericonhover">
+                        <ul class="nav-item__dropdown" id="usericonhover">
                             <li><a href="register.php">Inscription</a></li>
                             <li><a href="login.php">Connexion</a></li>
                         </ul>
@@ -83,20 +83,73 @@ if(ctype_digit($idArticle) and strlen($idArticle)===8){
                 if($idValid){
                     echo "<div class=\"content-item\">";
                     echo "<h1>{$titre}</h1>";
-                    echo "<div class=\"subtitle\"><p>écrit le {$date->format('d/m/Y')} par  {$auteur}</p><div><button class=\"tag\">recette</button><button class=\"tag\">tag2</button></div></div>";
-                    echo "</div>";
-                    echo $contenu;
-                }
+                    echo "<div class=\"subtitle\">";
+                    echo "<p>écrit le {$date->format('d/m/Y')} par {$auteur}</p><div>";
+                    echo "<button class=\"tag\">{$type}</button>";
+                    if(property_exists($attributs,'tags')){
+                        $tags=$attributs->tags;
+                    }else{
+                        $tags=[];
+                    };
+                    if(property_exists($attributs,'price')){
+                        $price=$attributs->price;
+                        switch($price){
+                            case 0:break;
+                            case 1:array_push($tags,'&#x1F4B6&nbsp;&#x25CF;&#x25CB;&#x25CB;');break;
+                            case 2:array_push($tags,'&#x1F4B6&nbsp;&#x25CF;&#x25CF;&#x25CB;');break;
+                            case 3:array_push($tags,'&#x1F4B6&nbsp;&#x25CF;&#x25CF;&#x25CF;');break;
+                        }
+                    };
+                    if(property_exists($attributs,'time')){
+                        $preptime=$attributs->time;
+                        if($preptime!==0){
+                            $hours=floor($preptime/60);
+                            $minutes=($preptime%60);
+                            $preptime="{$hours}h{$minutes}";
+                            // var_dump($preptime);
+                            array_push($tags,"&#x231b;&nbsp;{$preptime}");
+                        };
+                    };
+                    if(property_exists($attributs,'diff')){
+                        $diff=$attributs->diff;
+                        switch($diff){
+                            case 0:break;
+                            case 1:array_push($tags,'&#x1f374&nbsp;&#x25CF;&#x25CB;&#x25CB;');break;
+                            case 2:array_push($tags,'&#x1f374&nbsp;&#x25CF;&#x25CF;&#x25CB;');break;
+                            case 3:array_push($tags,'&#x1f374&nbsp;&#x25CF;&#x25CF;&#x25CF;');break;
+                        }
+                    };
+                    for($i=0;$i<count($tags);$i++){
+                        echo "<button class=\"tag\">{$tags[$i]}</button>";
+                    };
+                    echo "</div></div></div>";
+                    $j=-2;
+                    $src="";
+                    for($i=1;$i<=count((array)$contenu);$i++){
+                        echo "<div class=\"content-item\">";
+                        if(gettype($contenu->$i)==='object'){
+                            $src=$contenu->$i->src;
+                            $img="<img src=\"images/{$medias->$src}\" alt=\"{$contenu->$i->alt}\">";
+                            $j=$i;
+                        }else{
+                            if($i===$j+1){
+                                echo $img;
+                            }
+                            echo $contenu->$i;
+                        }
+                        echo "</div>";
+                    };
+                };
                 ?>
             </main>
             <footer>
                 <form id="newsletter" action="newsletter.php" method="POST" target="_self">
                     <h2>Newsletter</h2>
-                    <p>Si tu veux être au courant des dernières infos et articles, inscris-toi à notre newsletter&#8239;!<br/>Promis on va pas spammer...</p>
+                    <p>Si tu veux être au courant des dernières infos et articles, inscris-toi à notre newsletter&#8239;!<br/>
+                    Promis on va pas spammer...</p>
                     <div class="newsletter__email">
                         <input id="nl-email__field" type="email" name="nl-email" placeholder="Email"/>
                         <input id="nl-email__submit" type="submit" name="nl-submit" value="Go&#8239;!">
-                        <!-- pattern="(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)" -->
                     </div>
                 </form>
                 <nav class="about">

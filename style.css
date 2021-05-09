@@ -77,16 +77,15 @@ input::placeholder{
     display: block;
     position: absolute;
     min-height: 367px;
-    height: attr(grad-height);
     width: 100%;
     top: 100px;
     left: 0;
     z-index: -1;
     background: linear-gradient(180deg, #151E3F 0%, #151E3F44 100%); 
 }
-/* @media (width<455px){
-    .index-main-wrap::before{height:533px}
-} */
+@media only screen (max-width:455px){
+    .gradient::before{height:533px}
+}
 header{
     background-color: var(--dark-blue);
     position: -webkit-sticky;
@@ -123,24 +122,29 @@ header{
 .nav-item--text{
     font-size: 1.25em;
 }
-.nav-item__hover{
+.nav-item__dropdown{
     display: none;
     position: absolute;
-    top: 1.5em;
+    top: 2.5rem;
     left: 30%;
     z-index: 1000;
+    font-size: .8em;
     color: var(--yellow);
     background-color: #151E3FAA;
     list-style: none;
     margin-left: 0;
-    border-radius: 0.5em;
+    border-radius: .5em;
     padding: .5em;
+    width: max-content;
+}
+.nav-item__dropdown li{
+    padding: .1em .3em;
 }
 #tipshover{
     left: 30%;
 }
 #usericonhover{
-    left: -10%;
+    left: 0;
 }
 .nav-item--logo{
     width: auto;
@@ -189,11 +193,28 @@ main{
 .content-item>p{
     text-indent: 2em;
 }
-.content-item ul{
+.content-item ul,ol{
     padding-left: 1.5em;
 }
 .content-item li{
     padding-left: .5em;
+}
+.content-item>img{
+    display: block;
+    margin: auto;
+    height: 50vh;
+    max-height: 350px;
+    float: right;
+    padding-left: 1em;
+    padding-bottom: .5em;
+}
+.content-item>li{
+    display: block;
+    margin: auto;
+    height: 1em;
+    float: left;
+    padding-left: 1em;
+    padding-bottom: .5em;
 }
 .content-item--white{
     color: white;
@@ -217,22 +238,26 @@ main{
     align-items: inherit;
     justify-content: space-between;
 }
-.subtitle *{
+.subtitle p,button{
     margin-left: 1em;
 }
 .subtitle>p{
     color: #555;
     font-style: italic;
+    text-align: left;
 }
 .subtitle>div{
     display: flex;
     flex-flow: row nowrap;
 }
 .subtitle .tag{
+    display: inline-flex;
     background-color: var(--yellow);
     color: white;
+    height: 1.5em;
     padding: .25em .75em;
     border-radius: .5rem;
+    align-items: center;
 }
 .card-wrap{
     display: grid;
@@ -382,8 +407,8 @@ input[type=submit]:hover{
 }
 #connectinstead,#registerinstead{
     position: absolute;
-    top: 5%;
-    left: 85%;
+    top: 20px;
+    right: 30px;
 }
 /* #connectinstead::before{
     content:"Vous avez déja un compte ?"

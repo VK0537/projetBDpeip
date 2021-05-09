@@ -1,5 +1,20 @@
-<?php
-
+<?php 
+$keys=file_get_contents("./keys.json",true);
+$dbAcess=json_decode($keys,true)["databaseAcess"];
+$mysqli=new mysqli("localhost",$dbAcess["username"],$dbAcess["password"],"ptitips");
+if ($mysqli->connect_error) {
+    die("Connection failed: ".$mysqli->connect_error);
+};
+$mysqli->set_charset('utf8mb4');
+$result=$mysqli->query("SELECT `idArticle`, `titre`, `medias` FROM `article` ORDER BY `date` LIMIT 6;");
+if($result!=false and $result->num_rows>0){
+    $articles=array();
+    while($row=$result->fetch_assoc()){
+        array_push($articles,$row);
+    };
+}else{
+    $articles=[];
+};
 ?>
 <!DOCTYPE html>
 <html lang='fr'>
@@ -21,7 +36,7 @@
                     <a class="nav-item nav-item--text" href="test.html">NEWS</a>
                     <div class="nav-item" id="tips">
                         <a class="nav-item nav-item--text" href="test.html">TIPS</a>
-                        <ul class="nav-item__hover" id="tipshover">
+                        <ul class="nav-item__dropdown" id="tipshover">
                             <li><a href="test.html">Cuisine</a></li>
                             <li><a href="test.html">Bricolage</a></li>
                             <li><a href="test.html">Administration</a></li>
@@ -34,7 +49,7 @@
                 <nav class="nav nav--right">
                     <div class="nav-item" id="usericon">
                         <a class ="nav-item nav-item--logo" href="register.php"><img src="favicons/userw.png" alt="Inscription"/></a>
-                        <ul class="nav-item__hover" id="usericonhover">
+                        <ul class="nav-item__dropdown" id="usericonhover">
                             <li><a href="register.php">Inscription</a></li>
                             <li><a href="login.php">Connexion</a></li>
                         </ul>
@@ -57,7 +72,7 @@
                     même situation que vous, pour discuter et s'entraider.</p>
                 </div>
                 <div class="content-item">
-                    <button class="button--big" onclick="window.location.href='test.html';">C'est Parti !</button>
+                    <button class="button--big" onclick="window.location.href='register.php';">C'est Parti !</button>
                 </div>
                 <div class="content-item">
                     <p>&Agrave; votre inscription, vous avez la posibilité de renseigner votre lieu d'étude afin 
@@ -69,44 +84,14 @@
                     concerne la gestion de vos tâches quotidiennes : budget, liste de courses, etc...</p>
                 </div>
                 <div class="content-item card-wrap">
-                    <a href="article.php?article=48077208" class="card">
-                        <div>
-                            <div class="card__img"><img src="images/8a9.jpg" alt="harold"/></div>
-                            <div class="card__text"><h1>10 astuces joie et bonne humeur</h1><p>Comment être heureux et éviter le suicide</p></div>
-                        </div>
-                    </a>
-                    <a href="article.php?article=21162139" class="card">
-                        <div>
-                            <div class=card__img><img src="images/EfjF3oRn.jpg" alt="healthy dish image"/></div>
-                            <div class="card__text"><h1>5 astuces pâté</h1><p>Existe aussi pour les végans !</p></div>
-                        </div>
-                    </a>
-                    <a href="article.php?article=59972036" class="card">
-                        <div>
-                            <div class=card__img><img src="images/SDFGH.jpg" alt="clebs"/></div>
-                            <div class="card__text"><p>Plus de 990255734 astuces sur les teckels</p></div>
-                        </div>
-                    </a>
-                    <a href="article.php?article=62417654" class="card">
-                        <div>
-                            <div class=card__img><img src="images/IMG_0935.JPG" alt="vendre"/></div>
-                            <div class="card__text"><p>Vendre ses talents en situation de retrutement</p></div>
-                        </div>
-                    </a>
-                    <a href="article.php?article=40227636" class="card">
-                        <div>
-                            <div class=card__img><img src="images/IMG_1281.JPG" alt="exam"/></div>
-                            <div class="card__text"><p>Réussir ses révisions</p></div>
-                        </div>
-                    </a>
-                    <a href="article.php?article=64845667" class="card">
-                        <div>  
-                            <div class=card__img><img src="images/IMG_0838.jpg" alt="clodo"/></div>
-                            <div class="card__text"><h1>Gérer ses finances</h1><p>Ou comment ne pas finir à la rue</p></div>
-                        </div>
-                    </a>
-                </div>
-                <div class="content-item">
+                    <?php
+                    foreach($articles as &$item){
+                        echo "<a href=\"article.php?article={$item['idArticle']}\" class='card'><div>";
+                        $cover=json_decode($item['medias'])->cover;
+                        echo "<div class='card__img'><img src=\"images/{$cover}\" alt=\"{$item['titre']}\"/></div>";
+                        echo "<div class='card__text'><h1>{$item['titre']}</h1></div></div></a>";
+                    }
+                    ?>
                 </div>
             </main>
             <footer>
