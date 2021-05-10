@@ -72,8 +72,8 @@ if(isset($_GET['err']) and ctype_digit($_GET['err']) and strlen($_GET['err'])===
         </main>
         <footer>
             <nav class="about">
-                <a href="#">about us <img src="/favicons/amogus.png" height=10 alt=""/></a>
-                <a href="/plan.html">plan du site</a>
+                <a href="about-us.php">about us<img src="/favicons/amogus.png" height=10 alt=""/></a>
+                <a href="plan.php">plan du site</a>
             </nav>
         </footer>
         <script src="common.js"></script>

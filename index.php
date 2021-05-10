@@ -1,8 +1,5 @@
 <?php 
 session_start();
-$l=isset($_SESSION['logged']);
-echo "logged {$l}<br/>";
-echo "email {$_SESSION['email']}";
 $keys=file_get_contents("./keys.json",true);
 $dbAcess=json_decode($keys,true)["databaseAcess"];
 $mysqli=new mysqli("localhost",$dbAcess["username"],$dbAcess["password"],"ptitips");
@@ -122,8 +119,8 @@ if($result!=false and $result->num_rows>0){
                 </div>
             </form>
             <nav class="about">
-                <a href="#">about us <img src="/favicons/amogus.png" height=10 alt=""/></a>
-                <a href="/plan.html">plan du site</a>
+                <a href="about-us.php">about us<img src="/favicons/amogus.png" height=10 alt=""/></a>
+                <a href="plan.php">plan du site</a>
             </nav>
         </footer>
         <script src="common.js"></script>

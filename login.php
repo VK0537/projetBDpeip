@@ -38,6 +38,7 @@ if(isset($_SESSION['log-password'])){
             if($userMatch->num_rows===1){
                 $_SESSION['logged']=true;
                 $_SESSION['email']=$_SESSION['log-email'];
+                unset($userMatch,$_SESSION['log-email'],$_SESSION['log-password']);
                 header('Location:/');
                 exit();
             }elseif($userMatch->num_rows>1){
@@ -45,13 +46,11 @@ if(isset($_SESSION['log-password'])){
             }else{
                 echo '<script>alert("le nom d\'utilisateur ou le mot de passe est incorrect");</script>';
             };
-            //-----------------------------------
         };
     }else{
         echo '<script>alert("L\'un des champs requis est vide");</script>';
     };
-    unset($_SESSION['log-email']);
-    unset($_SESSION['log-password']);
+    unset($userMatch,$_SESSION['log-email'],$_SESSION['log-password']);
 };
 ?>
 <!DOCTYPE html>
@@ -135,8 +134,8 @@ if(isset($_SESSION['log-password'])){
                 </div>
             </form>
             <nav class="about">
-                <a href="#">about us <img src="/favicons/amogus.png" height=10 alt=""/></a>
-                <a href="/plan.html">plan du site</a>
+                <a href="about-us.php">about us<img src="/favicons/amogus.png" height=10 alt=""/></a>
+                <a href="plan.php">plan du site</a>
             </nav>
         </footer>
         <script>
@@ -145,7 +144,5 @@ if(isset($_SESSION['log-password'])){
         };
         </script>
         <script src="common.js"></script>
-        <script>
-        </script>
     </div></body>
 </html>

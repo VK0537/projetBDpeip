@@ -107,6 +107,7 @@ if(isset($_SESSION['reg-password'])){
                     $mysqli->close();
                     $_SESSION['logged']=true;
                     $_SESSION['email']=$_SESSION['reg-email'];
+                    unset($userExists,$cityExists,$nameAndIdMatch,$dob,$idVille,$_SESSION['reg-username'],$_SESSION['reg-lname'],$_SESSION['reg-name'],$_SESSION['reg-email'],$_SESSION['reg-password'],$_SESSION['reg-dob'],$_SESSION['reg-city'],$_SESSION['reg-cityId'],$_SESSION['reg-domaine']);
                     header('Location:/');
                     exit();
                 }else{
@@ -117,17 +118,7 @@ if(isset($_SESSION['reg-password'])){
     }else{
         echo '<script>alert("L\'un des champs requis est vide");</script>';
     };
-    unset($dob);
-    unset($idVille);
-    unset($_SESSION['reg-username']);
-    unset($_SESSION['reg-lname']);
-    unset($_SESSION['reg-name']);
-    unset($_SESSION['reg-email']);
-    unset($_SESSION['reg-password']);
-    unset($_SESSION['reg-dob']);
-    unset($_SESSION['reg-city']);
-    unset($_SESSION['reg-cityId']);
-    unset($_SESSION['reg-domaine']);
+    unset($userExists,$cityExists,$nameAndIdMatch,$dob,$idVille,$_SESSION['reg-username'],$_SESSION['reg-lname'],$_SESSION['reg-name'],$_SESSION['reg-email'],$_SESSION['reg-password'],$_SESSION['reg-dob'],$_SESSION['reg-city'],$_SESSION['reg-cityId'],$_SESSION['reg-domaine']);
 };
 ?>
 <!DOCTYPE html>
@@ -287,8 +278,8 @@ if(isset($_SESSION['reg-password'])){
                 </div>
             </form>
             <nav class="about">
-                <a href="#">about us <img src="/favicons/amogus.png" height=10 alt=""/></a>
-                <a href="/plan.html">plan du site</a>
+                <a href="about-us.php">about us<img src="/favicons/amogus.png" height=10 alt=""/></a>
+                <a href="plan.php">plan du site</a>
             </nav>
         </footer>
         <script src="common.js"></script>

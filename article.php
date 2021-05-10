@@ -100,11 +100,8 @@ if(isset($idArticle) and ctype_digit($idArticle) and strlen($idArticle)===8){
         <main>
             <?php 
             if($idValid){
-                echo "<div class=\"content-item\">";
-                echo "<h1>{$titre}</h1>";
-                echo "<div class=\"subtitle\">";
-                echo "<p>écrit le {$date->format('d/m/Y')} par {$auteur}</p><div>";
-                echo "<button class=\"tag\" onclick=\"window.location.href='search?cat={$type}';\">{$type}</button>";
+                echo "<div class=\"content-item\"><h1>{$titre}</h1><div class=\"subtitle\"><p>écrit le {$date->format('d/m/Y')} par {$auteur}</p>";
+                echo "<div><button class=\"tag\" onclick=\"window.location.href='search?cat={$type}';\">{$type}</button>";
                 if(property_exists($attributs,'tags')){
                     $tags=$attributs->tags;
                 }else{
@@ -155,7 +152,7 @@ if(isset($idArticle) and ctype_digit($idArticle) and strlen($idArticle)===8){
                             echo $img;
                         }
                         echo $contenu->$i;
-                    }
+                    };
                     echo "</div>";
                 };
             };
@@ -172,8 +169,8 @@ if(isset($idArticle) and ctype_digit($idArticle) and strlen($idArticle)===8){
                 </div>
             </form>
             <nav class="about">
-                <a href="#">about us <img src="/favicons/amogus.png" height=10 alt=""/></a>
-                <a href="/plan.html">plan du site</a>
+                <a href="about-us.php">about us<img src="/favicons/amogus.png" height=10 alt=""/></a>
+                <a href="plan.php">plan du site</a>
             </nav>
         </footer>
         <script src="common.js"></script>

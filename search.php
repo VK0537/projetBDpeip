@@ -86,7 +86,18 @@ if($result!=false and $result->num_rows>0){
             </nav>
         </header>
         <main class="searchpage">
-
+            <div class="content-item search-filters">
+                <div class="selectdiv">
+                    <select name="search-filter-cat" id="search-filter-cat">
+                        <option value="" selected="selected">filtrer par catégorie :</option>
+                        <?php
+                        foreach($catoptions as &$val){
+                            echo "<option value=\"{$val}\">{$val}</option>";
+                        };
+                        ?>
+                    </select>
+                </div>
+            </div>
             <div class="content-item card-wrap card-wrap--big">
                 <?php
                 foreach($articles as &$item){
@@ -109,10 +120,11 @@ if($result!=false and $result->num_rows>0){
                 </div>
             </form>
             <nav class="about">
-                <a href="/about-us">about us <img src="/favicons/amogus.png" height=10 alt=""/></a>
-                <a href="/plan.html">plan du site</a>
+                <a href="/about-us">about us<img src="/favicons/amogus.png" height=10 alt=""/></a>
+                <a href="plan.php">plan du site</a>
             </nav>
         </footer>
         <script src="common.js"></script>
+        <script src="select.js"></script>
     </div></body>
 </html>
