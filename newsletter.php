@@ -3,7 +3,7 @@ session_start();
 if(isset($_POST['nl-submit'])){
     $_SESSION['email']=strtolower($_POST['nl-email']);
     header('Location:/#newsletter');
-    exit;
+    exit();
 };
 if(isset($_SESSION['email'])){
     echo 'a';

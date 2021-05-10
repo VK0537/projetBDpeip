@@ -1,8 +1,10 @@
-<?php 
+<?php
 session_start();
-$l=isset($_SESSION['logged']);
-echo "logged {$l}<br/>";
-echo "email {$_SESSION['email']}";
+if(isset($_GET["cat"]) and ctype_alpha($_GET["cat"]) and strlen($_GET["cat"])<20){
+    $cat=$_GET["cat"];
+}else{
+    $cat=null;
+};
 $keys=file_get_contents("./keys.json",true);
 $dbAcess=json_decode($keys,true)["databaseAcess"];
 $mysqli=new mysqli("localhost",$dbAcess["username"],$dbAcess["password"],"ptitips");
@@ -10,7 +12,15 @@ if($mysqli->connect_error){
     die("Connection failed: ".$mysqli->connect_error);
 };
 $mysqli->set_charset('utf8mb4');
-$result=$mysqli->query("SELECT `idArticle`, `titre`, `medias` FROM `article` ORDER BY `date` LIMIT 6;");
+$catoptions=["recette","bricolage","administratif","quotidien","autre"];
+if(isset($cat) && $cat!=null && in_array($cat,$catoptions)){
+    $request=$mysqli->prepare("SELECT `idArticle`, `titre`, `medias` FROM `article` WHERE `type`=? ORDER BY `date`");
+    $request->bind_param("s",$cat);
+    $request->execute();
+    $result=$request->get_result();
+}else{
+    $result=$mysqli->query("SELECT `idArticle`, `titre`, `medias` FROM `article` ORDER BY `date`");
+};
 if($result!=false and $result->num_rows>0){
     $articles=array();
     while($row=$result->fetch_assoc()){
@@ -26,11 +36,10 @@ if($result!=false and $result->num_rows>0){
         <meta charset='utf-8'/>
         <link rel='stylesheet' href='style.css'/>
         <title>Ptitips</title>
-        <!-- <base href="localhost" target="_blank"> -->
         <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
     </head>
-    <body><div class="content gradient">
+    <body><div class="content">
         <header>
             <nav class="nav nav--left">
                 <a class="nav-item nav-item--logo" href="/">
@@ -76,31 +85,9 @@ if($result!=false and $result->num_rows>0){
                 </form>
             </nav>
         </header>
-        <main>
-            <div class="content-item content-item--white">
-                <h1>Besoin d'un p'tit tips?</h1>
-            </div>
-            <div class="content-item content-item--white">
-                <p>Bienvenue sur la plateforme dédiée à vous aider dans les débuts de votre vie autonome&#8239;!<br/>
-                Que vous sortiez fraîchement de Parcoursup, ou que vous rentriez dans votre vie de jeune actif 
-                (&nbsp;félicitations pour votre job ;)&nbsp;), nous sommes les experts des bons plans et astuces 
-                pour vous sauver dans votre autonomie et surtout pour vous accompagner tout au long de votre 
-                cursus. Ici, vous pourrez échanger autant que vous le souhaitez avec des personnes dans la 
-                même situation que vous, pour discuter et s'entraider.</p>
-            </div>
-            <div class="content-item">
-                <button class="button--big" onclick="window.location.href='register.php';">C'est Parti !</button>
-            </div>
-            <div class="content-item">
-                <p>&Agrave; votre inscription, vous avez la posibilité de renseigner votre lieu d'étude afin 
-                de pouvoir être mis en relation avec des gens de votre université ou école. Vous pourrez 
-                ainsi faire plus ample connaissance avec vos futurs amis en vrai&#8239;! Ce qui peut vous 
-                permettre aussi de trouver des colocs ou, en temps de Covid, de se sentir un peu moins seul...<br/>
-                Vous trouverez sur notre site plusieures rubriques, qui vous redirigeront notamment vers 
-                des recettes, des tutos de bricolage, une page d'aide à l'administratif, et une page qui 
-                concerne la gestion de vos tâches quotidiennes : budget, liste de courses, etc...</p>
-            </div>
-            <div class="content-item card-wrap">
+        <main class="searchpage">
+
+            <div class="content-item card-wrap card-wrap--big">
                 <?php
                 foreach($articles as &$item){
                     echo "<a href=\"article.php?art={$item['idArticle']}\" class='card'><div>";
@@ -114,26 +101,18 @@ if($result!=false and $result->num_rows>0){
         <footer>
             <form id="newsletter" action="newsletter.php" method="POST" target="_self">
                 <h2>Newsletter</h2>
-                <p>Si tu veux être au courant des dernières infos et articles, inscris-toi à notre newsletter&#8239;!<br/>Promis on va pas spammer...</p>
+                <p>Si tu veux être au courant des dernières infos et articles, inscris-toi à notre newsletter&#8239;!<br/>
+                Promis on va pas spammer...</p>
                 <div class="newsletter__email">
                     <input id="nl-email__field" type="email" name="nl-email" placeholder="Email"/>
                     <input id="nl-email__submit" type="submit" name="nl-submit" value="Go&#8239;!">
-                    <!-- pattern="(?:[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*)@(?:(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)" -->
                 </div>
             </form>
             <nav class="about">
-                <a href="#">about us <img src="/favicons/amogus.png" height=10 alt=""/></a>
+                <a href="/about-us">about us <img src="/favicons/amogus.png" height=10 alt=""/></a>
                 <a href="/plan.html">plan du site</a>
             </nav>
         </footer>
         <script src="common.js"></script>
-        <script>
-            if(document.querySelector('.content-item--white')!==null && (window.location.pathname=='/' || window.location.pathname=='/index.php')){
-                let whiteContent=document.querySelectorAll('.content-item--white');
-                window.addEventListener('resize',(event)=>{
-                    console.log(window.innerWidth,whiteContent[0].clientHeight+whiteContent[1].clientHeight);
-                },once=false);
-            };
-        </script>
     </div></body>
 </html>

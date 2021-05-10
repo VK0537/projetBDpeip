@@ -2,11 +2,11 @@
     height:100%;
     font-size: 12px;
     font-family: 'Courier New', Courier, monospace;
-    background-color: black;
     overflow-x: hidden;
     overflow-y: scroll;
     box-sizing: border-box;
     display: block;
+    background-color: var(--dark-blue);
     --yellow:#FFC600;
     --dark-blue:#151E3F;
     --light-grey:#F6F6F6;
@@ -25,9 +25,13 @@ html, body, div, span, applet, object, iframe, h1, h2, h3, h4, h5, h6, p, blockq
 body{
     font-size: 1.75rem;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
-    background-color: var(--light-grey);
+    background-color: var(--dark-blue);
     color: black;
-    min-height: 100%;
+}
+.content{
+    background-color: var(--light-grey);
+    position: relative;
+    z-index: 1;
 }
 h1{
     font-size: 2.5em;
@@ -68,23 +72,36 @@ input{
 input::placeholder{
     font-style: italic;
 }
-.main-wrap{
-    position: relative;
-    z-index: 1;
-}
 .gradient::before{
     content: "";
     display: block;
     position: absolute;
-    min-height: 367px;
+    min-height: 376px;
     width: 100%;
     top: 100px;
     left: 0;
     z-index: -1;
     background: linear-gradient(180deg, #151E3F 0%, #151E3F44 100%); 
 }
-@media only screen (max-width:455px){
-    .gradient::before{height:533px}
+@media only screen and (max-width:1150px){
+    div.card-wrap--big{
+        grid-template-columns:repeat(3,minmax(0, 1fr));
+    }
+}
+@media only screen and (max-width:870px){
+    .gradient::before{height:400px}
+}
+@media only screen and (max-width:752px){
+    .gradient::before{height:425px}
+}
+@media only screen and (max-width:658px){
+    .gradient::before{height:451px}
+    div.card-wrap--big{
+        grid-template-columns:repeat(1,minmax(0, 1fr));
+    }
+}
+@media only screen and (max-width:455px){
+    .gradient::before{height:636px}
 }
 header{
     background-color: var(--dark-blue);
@@ -186,6 +203,9 @@ main{
     margin: auto;
     max-width: 900px;
 }
+main.searchpage{
+    max-width: 1500px;
+}
 .content-item{
     padding: .7em 0;
     text-align: justify;
@@ -265,6 +285,9 @@ main{
     grid-gap: 1em;
     justify-content: space-evenly;
 }
+.card-wrap--big{
+    grid-template-columns: repeat(6, minmax(0, 1fr));
+}
 .card>div{
     display: flex;
     flex-direction: column;
@@ -302,6 +325,11 @@ main{
 .card__text h1{
     font-size: 1.25em;
     padding-left: 0;
+}
+#error-code{
+    text-indent: 0;
+    font-size: 10em;
+    color: var(--dark-blue);
 }
 footer{
     background-color: var(--dark-blue);
