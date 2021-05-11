@@ -22,7 +22,6 @@ if(isset($_SESSION['log-password'])){
             foreach($_SESSION as &$val){
                 $val=htmlspecialchars($val);
             };
-            //------------------------------------
             $keys=file_get_contents("./keys.json",false);
             $dbAcess=json_decode($keys,true)["databaseAcess"];
             $mysqli=new mysqli("localhost",$dbAcess["username"],$dbAcess["password"],"ptitips");
