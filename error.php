@@ -66,14 +66,14 @@ if(isset($_GET['err']) and ctype_digit($_GET['err']) and strlen($_GET['err'])===
                 <p id="error-code"><?php echo $errorcode ?></p>
             </div>
             <div class="content-item">
-                <p">Tu semble égaré... Voici <a href="https://youtu.be/dQw4w9WgXcQ" style="color:#FFC600">un lien</a> qui pourra peut être t'aider... <br/>
-                Tu peux aussi essayer le <a href="plan.php" style="color:#FFC600">plan du site</a>...</p>
+                <p">Tu semble égaré... Voici <a href="https://www.youtube.com/embed/dQw4w9WgXcQ" style="color:#FFC600">un lien</a> qui pourra peut être t'aider... <br/>
+                Tu peux aussi essayer le <a href="sitemap.php" style="color:#FFC600">plan du site</a>...</p>
             </div>
         </main>
         <footer>
             <nav class="about">
                 <a href="about-us.php">about us <img src="/favicons/amogus.png" height=10 alt=""/></a>
-                <a href="plan.php">plan du site</a>
+                <a href="sitemap.php">plan du site</a>
             </nav>
         </footer>
         <script src="common.js"></script>

@@ -329,6 +329,12 @@ main.searchpage{
     font-size: 1.25em;
     padding-left: 0;
 }
+.sitemap ul{
+    list-style: none;
+}
+.sitemap li::before{
+    content: "\21B3";
+}
 #error-code{
     text-indent: 0;
     font-size: 10em;

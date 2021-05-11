@@ -170,7 +170,7 @@ if(isset($idArticle) and ctype_digit($idArticle) and strlen($idArticle)===8){
             </form>
             <nav class="about">
                 <a href="about-us.php">about us <img src="/favicons/amogus.png" height=10 alt=""/></a>
-                <a href="plan.php">plan du site</a>
+                <a href="sitemap.php">plan du site</a>
             </nav>
         </footer>
         <script src="common.js"></script>

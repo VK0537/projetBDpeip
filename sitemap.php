@@ -1,10 +1,5 @@
 <?php
 session_start();
-if(isset($_GET["cat"]) and ctype_alpha($_GET["cat"]) and strlen($_GET["cat"])<20){
-    $cat=$_GET["cat"];
-}else{
-    $cat=null;
-};
 $keys=file_get_contents("./keys.json",true);
 $dbAcess=json_decode($keys,true)["databaseAcess"];
 $mysqli=new mysqli("localhost",$dbAcess["username"],$dbAcess["password"],"ptitips");
@@ -13,14 +8,7 @@ if($mysqli->connect_error){
 };
 $mysqli->set_charset('utf8mb4');
 $catoptions=["recette","bricolage","administratif","quotidien","autre"];
-if(isset($cat) && $cat!=null && in_array($cat,$catoptions)){
-    $request=$mysqli->prepare("SELECT `idArticle`, `titre`, `medias` FROM `article` WHERE `type`=? ORDER BY `date`");
-    $request->bind_param("s",$cat);
-    $request->execute();
-    $result=$request->get_result();
-}else{
-    $result=$mysqli->query("SELECT `idArticle`, `titre`, `medias` FROM `article` ORDER BY `date`");
-};
+$result=$mysqli->query("SELECT `idArticle`, `titre`, `medias` FROM `article` ORDER BY `date`");
 if($result!=false and $result->num_rows>0){
     $articles=array();
     while($row=$result->fetch_assoc()){
@@ -85,46 +73,49 @@ if($result!=false and $result->num_rows>0){
                 </form>
             </nav>
         </header>
-        <main class="searchpage">
-            <div class="content-item search-filters">
-                <div class="selectdiv">
-                    <select name="search-filter-cat" id="search-filter-cat">
-                        <option value="" selected="selected">filtrer par catégorie :</option>
-                        <?php
-                        foreach($catoptions as &$val){
-                            echo "<option value=\"{$val}\">{$val}</option>";
-                        };
-                        ?>
-                    </select>
-                </div>
-            </div>
-            <div class="content-item card-wrap card-wrap--big">
-                <?php
-                foreach($articles as &$item){
-                    echo "<a href=\"article.php?art={$item['idArticle']}\" class='card'><div>";
-                    $cover=json_decode($item['medias'])->cover;
-                    echo "<div class='card__img'><img src=\"images/{$cover}\" alt=\"{$item['titre']}\"/></div>";
-                    echo "<div class='card__text'><h1>{$item['titre']}</h1></div></div></a>";
-                }
-                ?>
+        <main>
+            <div class="content-item sitemap">
+            <ul>
+                <li><a href="/">Homepage</a></li>
+                <ul>
+                    <li><a href="about-us.php">About us</a></li>
+                    <li><span>Articles</span></li>
+                    <ul>
+                    <?php
+                    foreach($articles as &$item){
+                        $maj=ucFirst($item['titre']);
+                        echo "<li><a href=\"article.php?art={$item['idArticle']}\">{$maj}</a></li>";
+                    };
+                    ?>
+                    </ul>
+                    <li><a href="search.php">Recherche</a></li>
+                    <ul>
+                    <?php
+                    foreach($catoptions as &$item){
+                        $maj=ucFirst($item);
+                        echo "<li><a href=\"search.php?cat={$item}\">{$maj}</a></li>";
+                    };
+                    ?>
+                    </ul>
+                    <li><a href="register.php">Inscription</a></li>
+                    <li><a href="login.php">Connexion</a></li>
+                    <ul>
+                        <li><a href="profile.php">Profil</a></li>
+                        <li><a href="chat.php">Chat</a></li>
+                        <li><a href="disconnect.php">Déconnexion</a></li>
+                    </ul>
+                    <li><a href="error.php">Erreur</a></li>
+                    <li><a href="sitemap.php">Plan du site</a></li>
+                </ul>
+            </ul>
             </div>
         </main>
         <footer>
-            <form id="newsletter" action="newsletter.php" method="POST" target="_self">
-                <h2>Newsletter</h2>
-                <p>Si tu veux être au courant des dernières infos et articles, inscris-toi à notre newsletter&#8239;!<br/>
-                Promis on va pas spammer...</p>
-                <div class="newsletter__email">
-                    <input id="nl-email__field" type="email" name="nl-email" placeholder="Email"/>
-                    <input id="nl-email__submit" type="submit" name="nl-submit" value="Go&#8239;!">
-                </div>
-            </form>
             <nav class="about">
-                <a href="/about-us">about us <img src="/favicons/amogus.png" height=10 alt=""/></a>
+                <a href="about-us.php">about us <img src="/favicons/amogus.png" height=10 alt=""/></a>
                 <a href="sitemap.php">plan du site</a>
             </nav>
         </footer>
         <script src="common.js"></script>
-        <script src="select.js"></script>
     </div></body>
 </html>
