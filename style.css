@@ -226,6 +226,7 @@ main.searchpage{
     display: block;
     margin: auto;
     height: 50vh;
+    max-width: 500px;
     max-height: 350px;
     float: right;
     padding-left: 1em;
