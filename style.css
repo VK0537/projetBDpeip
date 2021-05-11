@@ -340,6 +340,26 @@ main.searchpage{
     font-size: 10em;
     color: var(--dark-blue);
 }
+#container{
+    position: relative;
+    background-color: black;
+    width: 100%;
+    height: 700px;
+    margin: 0;
+    max-width: 100%;
+}
+.ball {
+    text-align: center;
+    font-weight: bold;
+    font-size: 6em;
+    position: absolute;
+}
+#container .content-item{
+    color: white;
+    position: absolute;
+    bottom: 50px;
+    left: 50px;
+}
 .about-us-grid{
     grid-template-columns: repeat(6, minmax(0, 1fr));
     font-size: 1.3em;

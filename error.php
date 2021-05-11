@@ -10,7 +10,7 @@ if(isset($_GET['err']) and ctype_digit($_GET['err']) and strlen($_GET['err'])===
 <html lang='fr'>
     <head>
         <meta charset='utf-8'/>
-        <link rel='stylesheet' href='style.css'/>
+        <link rel='stylesheet' href='http://localhost/style.css'/>
         <title>Ptitips</title>
         <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
@@ -61,10 +61,11 @@ if(isset($_GET['err']) and ctype_digit($_GET['err']) and strlen($_GET['err'])===
                 </form>
             </nav>
         </header>
-        <main>
-            <div class="content-item">
-                <p id="error-code"><?php echo $errorcode ?></p>
-            </div>
+        <main id="container">
+            <div class="ball" speed="1" style="top:100px;left:100px;color:rgb(255, 0, 0);"><?php echo $errorcode; ?></div>
+            <!--<div class="content-item">
+                <p id="error-code"</p>
+            </div>-->
             <div class="content-item">
                 <p">Tu semble égaré... Voici <a href="https://www.youtube.com/embed/dQw4w9WgXcQ" style="color:#FFC600">un lien</a> qui pourra peut être t'aider... <br/>
                 Tu peux aussi essayer le <a href="sitemap.php" style="color:#FFC600">plan du site</a>...</p>
@@ -76,6 +77,7 @@ if(isset($_GET['err']) and ctype_digit($_GET['err']) and strlen($_GET['err'])===
                 <a href="sitemap.php">plan du site</a>
             </nav>
         </footer>
-        <script src="common.js"></script>
+        <script src="http://localhost/common.js"></script>
+        <script src="http://localhost/error.js"></script>
     </div></body>
 </html>
