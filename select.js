@@ -35,8 +35,6 @@ for(let i=0;i<selectdivs.length;i++){
   newselect.addEventListener("click",function(event){
     event.stopPropagation();
     closeAllSelect(this);
-    console.log(this);
-    console.log(this.nextElementSibling);
     this.nextElementSibling.classList.toggle("select-hide");
     this.classList.toggle("select-arrow-active");
   });
