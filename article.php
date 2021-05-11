@@ -70,7 +70,7 @@ if(isset($idArticle) and ctype_digit($idArticle) and strlen($idArticle)===8){
                 </div>
                 <?php
                 if(isset($_SESSION['logged']) && $_SESSION['logged'] ){
-                    echo "<a class=\"nav-item nav-item--text\" href=\"test.html\">CHAT</a>";
+                    echo "<a class=\"nav-item nav-item--text\" href=\"chat.php\">CHAT</a>";
                 }
                 ?>
             </nav>
@@ -169,7 +169,7 @@ if(isset($idArticle) and ctype_digit($idArticle) and strlen($idArticle)===8){
                 </div>
             </form>
             <nav class="about">
-                <a href="about-us.php">about us<img src="/favicons/amogus.png" height=10 alt=""/></a>
+                <a href="about-us.php">about us <img src="/favicons/amogus.png" height=10 alt=""/></a>
                 <a href="plan.php">plan du site</a>
             </nav>
         </footer>

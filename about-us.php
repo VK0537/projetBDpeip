@@ -29,7 +29,7 @@ session_start();
                 </div>
                 <?php
                 if(isset($_SESSION['logged']) && $_SESSION['logged'] ){
-                    echo "<a class=\"nav-item nav-item--text\" href=\"test.html\">CHAT</a>";
+                    echo "<a class=\"nav-item nav-item--text\" href=\"chat.php\">CHAT</a>";
                 }
                 ?>
             </nav>
@@ -84,7 +84,7 @@ session_start();
         </main>
         <footer>
             <nav class="about">
-                <a href="about-us.php">about us<img src="/favicons/amogus.png" height=10 alt=""/></a>
+                <a href="about-us.php">about us <img src="/favicons/amogus.png" height=10 alt=""/></a>
                 <a href="plan.php">plan du site</a>
             </nav>
         </footer>

@@ -58,7 +58,7 @@ if($result!=false and $result->num_rows>0){
                 </div>
                 <?php
                 if(isset($_SESSION['logged']) && $_SESSION['logged'] ){
-                    echo "<a class=\"nav-item nav-item--text\" href=\"test.html\">CHAT</a>";
+                    echo "<a class=\"nav-item nav-item--text\" href=\"chat.php\">CHAT</a>";
                 }
                 ?>
             </nav>
@@ -120,7 +120,7 @@ if($result!=false and $result->num_rows>0){
                 </div>
             </form>
             <nav class="about">
-                <a href="/about-us">about us<img src="/favicons/amogus.png" height=10 alt=""/></a>
+                <a href="/about-us">about us <img src="/favicons/amogus.png" height=10 alt=""/></a>
                 <a href="plan.php">plan du site</a>
             </nav>
         </footer>
