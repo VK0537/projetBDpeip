@@ -8,6 +8,7 @@ if($mysqli->connect_error){
 };
 $mysqli->set_charset('utf8mb4');
 $result=$mysqli->query("SELECT `idArticle`, `titre`, `medias` FROM `article` ORDER BY `date` LIMIT 6;");
+$mysqli->close();
 if($result!=false and $result->num_rows>0){
     $articles=array();
     while($row=$result->fetch_assoc()){
@@ -124,13 +125,5 @@ if($result!=false and $result->num_rows>0){
             </nav>
         </footer>
         <script src="common.js"></script>
-        <script>
-            if(document.querySelector('.content-item--white')!==null && (window.location.pathname=='/' || window.location.pathname=='/index.php')){
-                let whiteContent=document.querySelectorAll('.content-item--white');
-                window.addEventListener('resize',(event)=>{
-                    console.log(window.innerWidth,whiteContent[0].clientHeight+whiteContent[1].clientHeight);
-                },once=false);
-            };
-        </script>
     </div></body>
 </html>

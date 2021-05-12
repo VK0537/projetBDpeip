@@ -21,6 +21,7 @@ if(isset($idArticle) and ctype_digit($idArticle) and strlen($idArticle)===8){
     $request->execute();
     $match=$request->get_result();
     $request->close();
+    $mysqli->close();
     if($match->num_rows===1){
         $match=$match->fetch_assoc();
         $idValid=true;
@@ -46,7 +47,6 @@ if(isset($idArticle) and ctype_digit($idArticle) and strlen($idArticle)===8){
         <meta charset='utf-8'/>
         <link rel='stylesheet' href='style.css'/>
         <title>Ptitips</title>
-        <!-- <base href="localhost" target="_blank"> -->
         <link rel="icon" type="image/png" sizes="32x32" href="/favicons/favicon-32x32.png">
         <link rel="icon" type="image/png" sizes="16x16" href="/favicons/favicon-16x16.png">
     </head>
@@ -122,7 +122,6 @@ if(isset($idArticle) and ctype_digit($idArticle) and strlen($idArticle)===8){
                         $hours=floor($preptime/60);
                         $minutes=($preptime%60);
                         $preptime="{$hours}h{$minutes}";
-                        // var_dump($preptime);
                         array_push($tags,"&#x231b;&nbsp;{$preptime}");
                     };
                 };

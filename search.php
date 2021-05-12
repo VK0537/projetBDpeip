@@ -21,6 +21,7 @@ if(isset($cat) && $cat!=null && in_array($cat,$catoptions)){
 }else{
     $result=$mysqli->query("SELECT `idArticle`, `titre`, `medias` FROM `article` ORDER BY `date`");
 };
+$mysqli->close();
 if($result!=false and $result->num_rows>0){
     $articles=array();
     while($row=$result->fetch_assoc()){

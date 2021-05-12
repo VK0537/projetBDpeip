@@ -9,6 +9,7 @@ if($mysqli->connect_error){
 $mysqli->set_charset('utf8mb4');
 $catoptions=["recette","bricolage","administratif","quotidien","autre"];
 $result=$mysqli->query("SELECT `idArticle`, `titre`, `medias` FROM `article` ORDER BY `date`");
+$mysqli->close();
 if($result!=false and $result->num_rows>0){
     $articles=array();
     while($row=$result->fetch_assoc()){

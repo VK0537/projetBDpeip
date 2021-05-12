@@ -35,6 +35,7 @@ if(isset($_SESSION['log-password'])){
             $request->execute();
             $userMatch=$request->get_result();
             $request->close();
+            $mysqli->close();
             if($userMatch->num_rows===1){
                 $_SESSION['logged']=true;
                 $_SESSION['email']=$_SESSION['log-email'];
