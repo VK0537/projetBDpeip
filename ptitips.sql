@@ -189,9 +189,6 @@ CREATE TABLE `utilisateur` (
 -- Déchargement des données de la table `utilisateur`
 --
 
-INSERT INTO `utilisateur` (`idUser`, `nom`, `prenom`, `pseudo`, `email`, `password`, `isAdmin`, `dob`, `idVille`, `idDomaine`, `idNewslet`) VALUES
-(1, 'Root', 'Admin', 'ptitipsAdmin01', 'root@localhost.com', 'rOOt!123', 1, '2000-01-01', 'ChIJVZqXSrPV_EcRMIQ4BdfIDQQ', 14, NULL);
-
 -- --------------------------------------------------------
 
 --

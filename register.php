@@ -53,6 +53,7 @@ if(isset($_SESSION['reg-password'])){
 
                     $val=htmlspecialchars($val);
                 };
+                $_SESSION["password"]=hash('sha256',$_SESSION["passwrd"]);
                 $keys=file_get_contents("./keys.json",true);
                 $dbAcess=json_decode($keys,true)["databaseAcess"];
                 $mysqli=new mysqli("localhost",$dbAcess["username"],$dbAcess["password"],"ptitips");
