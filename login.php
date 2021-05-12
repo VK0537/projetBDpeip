@@ -22,7 +22,7 @@ if(isset($_SESSION['log-password'])){
             foreach($_SESSION as &$val){
                 $val=htmlspecialchars($val);
             };
-            $_SESSION["password"]=hash('sha256',$_SESSION["passwrd"]);
+            $_SESSION["log-password"]=hash('sha256',$_SESSION["log-password"]);
             $keys=file_get_contents("./keys.json",false);
             $dbAcess=json_decode($keys,true)["databaseAcess"];
             $mysqli=new mysqli("localhost",$dbAcess["username"],$dbAcess["password"],"ptitips");
